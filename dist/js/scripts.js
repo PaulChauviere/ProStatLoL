@@ -114,7 +114,14 @@ function afficheParties(nomJoueur){
                                 app.appendChild(emplacement)
                                 //Création d'une card (-> partie)
                                 var card = document.createElement('div')
-                                card.setAttribute('class', "card bg-card text-white mb-4 card-parties")
+                                if(team.win == "Win"){
+                                    card.setAttribute('class', "card bg-card-win text-white mb-4 card-parties")
+                                    console.log("vert")
+                                }
+                                else{
+                                    card.setAttribute('class', "card bg-card-lose text-white mb-4 card-parties")
+                                    console.log("rouge")
+                                }
                                 emplacement.appendChild(card)
 
                                 //Création de la date de la card
@@ -167,14 +174,7 @@ function afficheParties(nomJoueur){
                                 containerFleche.appendChild(fleche)
 
                                 card.appendChild(footer)
-                                if(team.win == "Win"){
-                                    card.style.backgroundColor = "green"
-                                    console.log("vert")
-                                }
-                                else{
-                                    card.style.backgroundColor = "red"
-                                    console.log("rouge")
-                                }
+                                
                                 
     
                             
