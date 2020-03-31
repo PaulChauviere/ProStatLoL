@@ -11,23 +11,8 @@
         <link rel="shortcut icon" type="image/ico" href="img/favicon.ico"/>
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript">
-            function toggle_visibility(id,id2,id3,id4,id5,id6) {
-                var t = document.getElementById(id);
-                var t2 = document.getElementById(id2);
-                var b = document.getElementById(id3);
-                var c = document.getElementById(id4);
-                var p = document.getElementById(id5);
-                var i = document.getElementById(id6);
-
-                t.style.display = 'none';
-                t2.style.display = 'none';
-                b.innerHTML = 'Afficher phrase selon nb loose ou win !';
-                c.style.display = 'none';
-                p.style.display = 'flex';
-                i.style.display = 'none'; 
-            }
-            </script>
+        <script src="./js/scripts.js"></script>
+            
     </head>
 
     <body class="sb-nav-fixed">
@@ -38,7 +23,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Rechercher un invocateur..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="toggle_visibility('title','title2','barre','cartes','parties','img');"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-primary" type="button" onclick="affichage_parties();"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -49,7 +34,7 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item" id="barre">Tape ton pseudo dans la barre de recherche, et découvre tes statistiques !</li>
                         </ol>
-                        <h2 class="mt-3" id="title2">Les dernières recherches : </h2>
+                        <h2 class="mt-3" id="title2">Les créateurs du site : </h2>
                         <div class="row" id="cartes">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
@@ -89,190 +74,7 @@
                             </div>
                         </div>
 
-                        <div class="row" id="parties">
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg1">Partie du 31/03/2020
-                                        <div class="card-title2" id="dureeg1">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag1">
-                                        <img class="img-fluid img-square" id="imgchampg1" src="../data/champImg/55.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg2">Partie du 30/03/2020
-                                        <div class="card-title2" id="dureeg2">15min 52s</div>
-                                    </div>
-                                    <div class="champion" id="kdag2">
-                                        <img class="img-fluid img-square" id="imgchampg2" src="../data/champImg/85.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg3">Partie du 29/03/2020
-                                        <div class="card-title2" id="dureeg3">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag3">
-                                        <img class="img-fluid img-square" id="imgchampg3" src="../data/champImg/89.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg4">Partie du 28/03/2020
-                                        <div class="card-title2" id="dureeg4">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag4">
-                                        <img class="img-fluid img-square" id="imgchampg4" src="../data/champImg/64.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg5">Partie du 27/03/2020
-                                        <div class="card-title2" id="dureeg5">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag5">
-                                        <img class="img-fluid img-square" id="imgchampg5" src="../data/champImg/1.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg6">Partie du 26/03/2020
-                                        <div class="card-title2" id="dureeg6">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag6">
-                                        <img class="img-fluid img-square" id="imgchampg6" src="../data/champImg/28.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg7">Partie du 25/03/2020
-                                        <div class="card-title2" id="dureeg7">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag7">
-                                        <img class="img-fluid img-square" id="imgchampg7" src="../data/champImg/39.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg8">Partie du 23/03/2020
-                                        <div class="card-title2" id="dureeg8">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag8">
-                                        <img class="img-fluid img-square" id="imgchampg8" src="../data/champImg/202.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg9">Partie du 22/03/2020
-                                        <div class="card-title2" id="dureeg9">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag9">
-                                        <img class="img-fluid img-square" id="imgchampg9" src="../data/champImg/150.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg10">Partie du 21/03/2020
-                                        <div class="card-title2" id="dureeg10">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag10">
-                                        <img class="img-fluid img-square" id="imgchampg10" src="../data/champImg/78.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg11">Partie du 20/03/2020
-                                        <div class="card-title2" id="dureeg11">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag11">
-                                        <img class="img-fluid img-square" id="imgchampg11" src="../data/champImg/143.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-4 col-md-6">
-                                <div class="card bg-card text-white mb-4 card-parties">
-                                    <div class="card-title1" id="dateg12">Partie du 19/03/2020
-                                        <div class="card-title2" id="dureeg12">20min 36s</div>
-                                    </div>
-                                    <div class="champion" id="kdag12">
-                                        <img class="img-fluid img-square" id="imgchampg12" src="../data/champImg/54.png" alt=""/>
-                                        0 / 8 / 6
-                                    </div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </div>
+                        <div class="row" id="parties"></div>
 
                         <div class="row">
                             <img class="img-fluid" id="img" src="img/tresh.jpg" alt="Controlez votre destin !"/>

@@ -4378,8 +4378,10 @@ input[type=button].btn-block {
   padding-top: 1%;
   padding-bottom: 3%;
   font-weight: bold;
-  font-size: 20px;
+   font-size: 20px;
 }
+
+
 
 .card > hr {
   margin-right: 0;
