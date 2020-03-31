@@ -4584,7 +4584,6 @@ input[type=button].btn-block {
 }
 
 .breadcrumb {
-  display: flex;
   flex-wrap: wrap;
   padding: 0.75rem;
   margin-top: 1rem;
@@ -4592,12 +4591,14 @@ input[type=button].btn-block {
   list-style: none;
   background-color: #e9ecef;
   border-radius: 0.25rem;
+}
+
+#barre{
   text-align: center;
 }
 
 .breadcrumb-item + .breadcrumb-item {
   padding-left: .5rem;
-  text-align: center;
 }
 .breadcrumb-item + .breadcrumb-item::before {
   display: inline-block;
@@ -4610,11 +4611,12 @@ input[type=button].btn-block {
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: none;
+
 }
 .breadcrumb-item.active {
   color: #6c757d;
   display: flex;
-  margin-left: 25.5%;
+  text-align: center;
 }
 
 .pagination {
