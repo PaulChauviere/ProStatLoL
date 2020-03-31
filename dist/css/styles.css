@@ -503,6 +503,12 @@ mark,
   padding-right: 3%;
 }
 
+.img-square{
+  max-width: 15%;
+  height: auto;
+  margin-right: 5%;
+}
+
 .img-thumbnail {
   padding: 0.25rem;
   background-color: #fff;
@@ -4366,6 +4372,14 @@ input[type=button].btn-block {
   border-radius: 0.25rem;
 }
 
+.champion{
+  overflow: auto;
+  text-align: center;
+  padding-top: 1%;
+  padding-bottom: 3%;
+  font-weight: bold;
+  font-size: 20px;
+}
 
 .card > hr {
   margin-right: 0;
@@ -4388,12 +4402,12 @@ input[type=button].btn-block {
 }
 
 .card-title {
-  float: left;
-  width: 40%;
+  overflow: auto;
+  padding: 2%;
 }
 
-.card-titled {
-  width: 40%;
+#duree{
+  float: right;
 }
 
 .card-subtitle {
@@ -6110,12 +6124,8 @@ a.close.disabled {
   background-color: var(--orange) !important;
 }
 
-.bg-victoire{
-  background-color: var(--green) !important;
-}
-
-.bg-defaite{
-  background-color: var(--red) !important;
+.bg-card{
+  background-color: var(--orange) !important;
 }
 
 a.bg-primary:hover, a.bg-primary:focus,
