@@ -49,11 +49,11 @@ function afficheParties(nomJoueur){
     imageTresh.style.display = 'none'
     msgLesCreateurs.style.display = 'none'
     msgBienvenue.style.display = 'none'
-    barre.innerHTML = 'Voici vos parties'
+    barre.innerHTML = 'Voici les parties de ' + nomJoueur
 
     
-
-    const app = document.getElementById('parties')
+    //Récupération de la zone d'affichage des parties
+    const app = document.getElementById('application')
     app.innerHTML = "" //"clear" de l'affichage des parties
     app.style.display = 'flex'
     
@@ -72,35 +72,8 @@ function afficheParties(nomJoueur){
             const p = document.createElement('p')
             const liste = document.createElement('ul')
             const test = document.createElement('p')
-            p.textContent ="Joueur : " + dataSummoner.name +"\t Level : "+ dataSummoner.summonerLevel
+            p.textContent ="Joueur : " + dataSummoner.name +"\t Level : "+ dataSummoner.summonerLevel   
             
-            //Variables de récupération des données
-            var role
-            var lane
-            var numChampion
-            var gameId
-            var date
-            var participantIdentity
-            var participant
-            var teamId
-            var team
-            var text
-            var duree
-
-            //Variables d'édition
-            var container 
-            var card
-            var cardTitle
-            var cardDuree
-            var cardChampion
-            var imgChamp
-            var txtKDA
-            var footer 
-            
-
-
-            
-
             //Création de la requête pour l'historique des matchs
             var accountId = dataSummoner.accountId
             var requestMatchList = new XMLHttpRequest()
@@ -112,77 +85,97 @@ function afficheParties(nomJoueur){
                 if(this.status == 200){
     
                     for(var i= 0; i<12 ;i++){
-                        //Récupération des données
-                        role        = dataMatchList.matches[i].role
-                        lane        = dataMatchList.matches[i].lane
-                        numChampion = dataMatchList.matches[i].champion
-                        gameId      = dataMatchList.matches[i].gameId
-                        date        = convertDateFormat( (new Date(dataMatchList.matches[i].timestamp).toString() ) )
-                                             
-            
-                        //Création des emplacements 
-                        emplacement = document.createElement('div')
-                        emplacement.setAttribute('class', "col-xl-4 col-md-6")
-                        app.appendChild(emplacement)
-                        //Création d'une card (-> partie)
-                        card = document.createElement('div')
-                        card.setAttribute('class', "card bg-card text-white mb-4 card-parties")
-                        emplacement.appendChild(card)
-
-                        //Création de la date de la card
-                        cardDate = document.createElement('div')
-                        cardDate.setAttribute('class', "card-title1")
-                        cardDate.textContent = date
-                        card.appendChild(cardDate)
-
                         
-
-                        //Création du champion
-                        cardChampion = document.createElement('div')    
-                        cardChampion.setAttribute('class', "champion")
-                        //Création de l'image du champion
-                        imgChamp = document.createElement("img")
-                        imgChamp.setAttribute('class', "img-fluid img-square")
-                        imgChamp.setAttribute('src', "./../data/champImg/"+numChampion+".png")
-                        cardChampion.appendChild(imgChamp)
-                        //Création du KDA
-                        txtKDA = document.createElement('p')
-                        txtKDA.setAttribute('class',"champion")
-                        txtKDA.textContent = 'TEST KDA'
-                        cardChampion.appendChild(txtKDA)
-                        //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
-                        
-                        card.appendChild(cardChampion)
-
-
-                        
-
-
-                        text = "Partie du "+ date +" | Role : " +role+" | Lane :"+lane + " | Numéro de champion :"+numChampion+" | Id de la partie : "+gameId+" | Victoire ou non : "
-    
+                        //Création de la requête pour les détails d'un match
+                        var gameId      = dataMatchList.matches[i].gameId
                         var requestMatchId = new XMLHttpRequest()
                         requestMatchId.open('GET','https://euw1.api.riotgames.com/lol/match/v4/matches/'+gameId+'?api_key='+key, false)
-    
                         requestMatchId.onload = function(){
                             var dataMatchId = JSON.parse(this.response)
-    
                             if(this.status == 200){
-    
+                                //Récupération des données
+                                var role        = dataMatchList.matches[i].role
+                                var lane        = dataMatchList.matches[i].lane
+                                var numChampion = dataMatchList.matches[i].champion
+                                
+                                var date        = convertDateFormat( (new Date(dataMatchList.matches[i].timestamp).toString() ) )
+                                var duree = toMinute(dataMatchId.gameDuration)
                                 //Récupération des infos de victoire ou non
-                                participantIdentity = dataMatchId.participantIdentities.find(joueur => joueur.player.summonerName == dataSummoner.name)
-                                participant         = dataMatchId.participants.find(participant => participant.participantId == participantIdentity.participantId)
-                                teamId              = participant.teamId
-                                team                = dataMatchId.teams.find(team => team.teamId == teamId)
-                                text += team.win
-    
-                                console.log(text)
+                                var participantIdentity = dataMatchId.participantIdentities.find(joueur => joueur.player.summonerName == dataSummoner.name)
+                                var participant         = dataMatchId.participants.find(participant => participant.participantId == participantIdentity.participantId)
+                                var teamId              = participant.teamId
+                                var team                = dataMatchId.teams.find(team => team.teamId == teamId)
+                                
+                                
 
-                                duree = toMinute(dataMatchId.gameDuration)
+                                //Création des emplacements 
+                                var emplacement = document.createElement('div')
+                                emplacement.setAttribute('class', "col-xl-4 col-md-6")
+                                app.appendChild(emplacement)
+                                //Création d'une card (-> partie)
+                                var card = document.createElement('div')
+                                card.setAttribute('class', "card bg-card text-white mb-4 card-parties")
+                                emplacement.appendChild(card)
+
+                                //Création de la date de la card
+                                var cardDate = document.createElement('div')
+                                cardDate.setAttribute('class', "card-title1")
+                                cardDate.textContent = date
+                                card.appendChild(cardDate)
+                                
                                 //Création de la durée de la card
-                                cardDuree = document.createElement('div')
+                                var cardDuree = document.createElement('div')
                                 cardDuree.setAttribute('class', "card-title2")
                                 cardDuree.textContent = duree // ICI IL FAUDRA METTRE LA DUREE
                                 cardDate.appendChild(cardDuree)
+
+                                
+
+                                //Création du champion
+                                var cardChampion = document.createElement('div')    
+                                cardChampion.setAttribute('class', "champion")
+                                //Création de l'image du champion
+                                var imgChamp = document.createElement("img")
+                                imgChamp.setAttribute('class', "img-fluid img-square")
+                                imgChamp.setAttribute('src', "./../data/champImg/"+numChampion+".png")
+                                cardChampion.appendChild(imgChamp)
+                                //Création du KDA
+                                var txtKDA = document.createElement('p')
+                                txtKDA.setAttribute('class',"champion")
+                                txtKDA.textContent = 'TEST KDA'
+                                cardChampion.appendChild(txtKDA)
+                                //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
+                        
+                                card.appendChild(cardChampion)
+
+
+                                //Création du footer 
+                                var footer = document.createElement('div')
+                                footer.setAttribute('class', "card-footer d-flex align-items-center justify-content-between")
+                                //Création du lien vers la partie
+                                var lienPartie = document.createElement('a')
+                                lienPartie.setAttribute('class',"small text-white stretched-link")
+                                lienPartie.setAttribute('onclick', "afficheDetailsPartie("+gameId+", "+accountId+")")
+                                lienPartie.textContent = 'Voir les détails'
+                                footer.appendChild(lienPartie)
+                                ///Création de la flèche
+                                var containerFleche = document.createElement('div')
+                                containerFleche.setAttribute('class', "small text-white")
+                                footer.appendChild(containerFleche)
+                                var fleche = document.createElement('i')
+                                fleche.setAttribute('class', "fas fa-angle-right")
+                                containerFleche.appendChild(fleche)
+
+                                card.appendChild(footer)
+                                if(team.win == "Win"){
+                                    card.style.backgroundColor = "green"
+                                    console.log("vert")
+                                }
+                                else{
+                                    card.style.backgroundColor = "red"
+                                    console.log("rouge")
+                                }
+                                
     
                             
     
