@@ -4401,12 +4401,12 @@ input[type=button].btn-block {
   font-weight: bold;
 }
 
-.card-title {
+.card-title1 {
   overflow: auto;
   padding: 2%;
 }
 
-#duree{
+.card-title2{
   float: right;
 }
 
