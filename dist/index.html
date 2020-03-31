@@ -12,15 +12,27 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            function toggle_visibility(id) {
-                var e = document.getElementById(id);
-                if(e.style.display == 'flex')
-                    e.style.display = 'none';
-                else
-                    e.style.display = 'flex';
+            function toggle_visibility(id,id2,id3,id4) {
+                var t = document.getElementById(id);
+                var t2 = document.getElementById(id2);
+                var b = document.getElementById(id3);
+                var c = document.getElementById(id4);
+                if((t.style.display == 'flex') && (t2.style.display == 'flex') && (b.style.display == 'flex') && (c.style.display == 'flex')){
+                    t.style.display = 'none';
+                    t2.style.display = 'none';
+                    b.innerHTML = 'Afficher phrase selon nb loose ou win !';
+                    c.style.display = 'none';
+                }                    
+                else{
+                    t.style.display = 'flex';
+                    t2.style.display = 'flex';
+                    b.style.display = 'flex';
+                    c.style.display = 'flex';
+                }                   
             }
             </script>
     </head>
+
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             
@@ -29,19 +41,19 @@
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Rechercher un invocateur..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="toggle_visibility('test');"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-primary" type="button" onclick="toggle_visibility('title','title2','barre','cartes');"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
         </nav>
                 <main>
                     <div class="container">
-                        <h1 class="mt-4">Bienvenue sur ProStat LoL, Invocateurs et Invocatrices !</h1>
+                        <h1 class="mt-4" id="title">Bienvenue sur ProStat LoL, Invocateurs et Invocatrices !</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Tape ton pseudo dans la barre de recherche, et découvre tes statistiques !</li>
+                            <li class="breadcrumb-item active" id="barre">Tape ton pseudo dans la barre de recherche, et découvre tes statistiques !</li>
                         </ol>
-                        <h2 class="mt-3">Les dernières recherches : </h2>
-                        <div class="row" id="test">
+                        <h2 class="mt-3" id="title2">Les dernières recherches : </h2>
+                        <div class="row" id="cartes">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
                                     <div class="card-body">Raz0r7</div>
@@ -54,6 +66,45 @@
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-secondary text-white mb-4">
                                     <div class="card-body">Onefaimieu</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">The Xytoz</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">Devildadou</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" id="parties">
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Raz0r7</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">Raz0r7</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>

@@ -631,6 +631,9 @@ pre code {
   margin-left: -0.75rem;
 }
 
+#parties{
+  display: none;
+}
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -4571,6 +4574,7 @@ input[type=button].btn-block {
   list-style: none;
   background-color: #e9ecef;
   border-radius: 0.25rem;
+  text-align: center;
 }
 
 .breadcrumb-item + .breadcrumb-item {
@@ -4591,6 +4595,7 @@ input[type=button].btn-block {
 }
 .breadcrumb-item.active {
   color: #6c757d;
+  display: flex;
   margin-left: 25.5%;
 }
 
@@ -7583,6 +7588,7 @@ button.bg-dark:focus {
 .mt-3,
 .my-3 {
   margin-top: 1rem !important;
+  display: flex;
 }
 
 .mr-3,
@@ -7607,6 +7613,8 @@ button.bg-dark:focus {
 .mt-4,
 .my-4 {
   margin-top: 1.5rem !important;
+  display: flex;
+  padding-left: 6%;
 }
 
 .mr-4,
@@ -7617,6 +7625,7 @@ button.bg-dark:focus {
 .mb-4,
 .my-4 {
   margin-bottom: 1.5rem !important;
+  text-align: center;
 }
 
 .ml-4,
