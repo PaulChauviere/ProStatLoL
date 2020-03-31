@@ -12,23 +12,20 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            function toggle_visibility(id,id2,id3,id4) {
+            function toggle_visibility(id,id2,id3,id4,id5,id6) {
                 var t = document.getElementById(id);
                 var t2 = document.getElementById(id2);
                 var b = document.getElementById(id3);
                 var c = document.getElementById(id4);
-                if((t.style.display == 'flex') && (t2.style.display == 'flex') && (b.style.display == 'flex') && (c.style.display == 'flex')){
-                    t.style.display = 'none';
-                    t2.style.display = 'none';
-                    b.innerHTML = 'Afficher phrase selon nb loose ou win !';
-                    c.style.display = 'none';
-                }                    
-                else{
-                    t.style.display = 'flex';
-                    t2.style.display = 'flex';
-                    b.style.display = 'flex';
-                    c.style.display = 'flex';
-                }                   
+                var p = document.getElementById(id5);
+                var i = document.getElementById(id6);
+
+                t.style.display = 'none';
+                t2.style.display = 'none';
+                b.innerHTML = 'Afficher phrase selon nb loose ou win !';
+                c.style.display = 'none';
+                p.style.display = 'flex';
+                i.style.display = 'none'; 
             }
             </script>
     </head>
@@ -41,7 +38,7 @@
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Rechercher un invocateur..." aria-label="Search" aria-describedby="basic-addon2" />
                     <div class="input-group-append">
-                        <button class="btn btn-primary" type="button" onclick="toggle_visibility('title','title2','barre','cartes');"><i class="fas fa-search"></i></button>
+                        <button class="btn btn-primary" type="button" onclick="toggle_visibility('title','title2','barre','cartes','parties','img');"><i class="fas fa-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -95,7 +92,10 @@
                         <div class="row" id="parties">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Raz0r7</div>
+                                    <div class="card-body">Partie du 30/03/2020</div>
+                                    <div class="card-body">img  nomchampiong1</div>
+                                    <div class="card-body">K/D/A : 0 / 8 / 6</div>
+                                    <div class="card-body">CS : 60cs</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -104,7 +104,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Raz0r7</div>
+                                    <div class="card-body">game2</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">The Xytoz</div>
+                                    <div class="card-body">game3</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -122,17 +122,90 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-secondary text-white mb-4">
-                                    <div class="card-body">Devildadou</div>
+                                    <div class="card-body">game4</div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game5</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game6</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game7</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game8</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game9</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game10</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game11</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-secondary text-white mb-4">
+                                    <div class="card-body">game12</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row">
-                            <img class="img-fluid" src="img/tresh.jpg" alt="Controlez votre destin !"/>
+                            <img class="img-fluid" id="img" src="img/tresh.jpg" alt="Controlez votre destin !"/>
                         </div>
                     </div>
 
