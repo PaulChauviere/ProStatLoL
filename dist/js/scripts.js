@@ -25,13 +25,24 @@ function toMinute(nbSec){
     return text
 }//toMinute
 
-function affichage_parties(){
 
+
+function affichePartieCheck(){   
+    var zoneRecherche = document.getElementById("zoneRecherche")
+    if( !(zoneRecherche.value=="") ){
+        afficheParties(zoneRecherche.value)
+    }   
+}
+
+
+function afficheParties(nomJoueur){
+    
     var cartes = document.getElementById("cartes");
     var imageTresh = document.getElementById("img")
     var msgBienvenue = document.getElementById("title")
     var msgLesCreateurs = document.getElementById("title2")
     var barre = document.getElementById("barre")
+    
     
 
     cartes.style.display = 'none'
@@ -43,13 +54,14 @@ function affichage_parties(){
     
 
     const app = document.getElementById('parties')
+    app.innerHTML = "" //"clear" de l'affichage des parties
     app.style.display = 'flex'
     
     
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
     var key = 'RGAPI-e7e07f02-da5c-4e51-b23f-14974c0faa88'
-    var pseudo = 'Raz0r7'
+    var pseudo = nomJoueur
     requestSummoner.open('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+pseudo+'?api_key='+key, true)
     
     requestSummoner.onload = function() {
@@ -83,6 +95,7 @@ function affichage_parties(){
             var cardChampion
             var imgChamp
             var txtKDA
+            var footer 
             
 
 
@@ -98,7 +111,7 @@ function affichage_parties(){
     
                 if(this.status == 200){
     
-                    for(var i= 0; i<10 ;i++){
+                    for(var i= 0; i<12 ;i++){
                         //Récupération des données
                         role        = dataMatchList.matches[i].role
                         lane        = dataMatchList.matches[i].lane
@@ -127,19 +140,21 @@ function affichage_parties(){
                         //Création du champion
                         cardChampion = document.createElement('div')    
                         cardChampion.setAttribute('class', "champion")
-
+                        //Création de l'image du champion
                         imgChamp = document.createElement("img")
                         imgChamp.setAttribute('class', "img-fluid img-square")
                         imgChamp.setAttribute('src', "./../data/champImg/"+numChampion+".png")
                         cardChampion.appendChild(imgChamp)
-
-                        var txtKDA = document.createElement('p')
+                        //Création du KDA
+                        txtKDA = document.createElement('p')
                         txtKDA.setAttribute('class',"champion")
                         txtKDA.textContent = 'TEST KDA'
                         cardChampion.appendChild(txtKDA)
                         //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
                         
                         card.appendChild(cardChampion)
+
+
                         
 
 
