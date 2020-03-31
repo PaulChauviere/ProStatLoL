@@ -141,17 +141,15 @@ function afficheParties(nomJoueur){
                                 //Création du champion
                                 var cardChampion = document.createElement('div')    
                                 cardChampion.setAttribute('class', "champion")
+                    
+                                cardChampion.textContent = 'TEST KDA'
+                                //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
                                 //Création de l'image du champion
                                 var imgChamp = document.createElement("img")
                                 imgChamp.setAttribute('class', "img-fluid img-square")
                                 imgChamp.setAttribute('src', "./../data/champImg/"+numChampion+".png")
                                 cardChampion.appendChild(imgChamp)
-                                //Création du KDA
-                                var txtKDA = document.createElement('p')
-                                txtKDA.setAttribute('class',"champion")
-                                txtKDA.textContent = 'TEST KDA'
-                                cardChampion.appendChild(txtKDA)
-                                //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
+                                
                         
                                 card.appendChild(cardChampion)
 
