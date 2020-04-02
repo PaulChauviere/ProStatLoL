@@ -27,23 +27,23 @@ function toMinute(nbSec){
 
 
 
-function affichePartieCheck(){   
+function affichePartieCheck(){
     var zoneRecherche = document.getElementById("zoneRecherche")
     if( !(zoneRecherche.value=="") ){
         afficheParties(zoneRecherche.value)
-    }   
+    }
 }
 
 
 function afficheParties(nomJoueur){
-    
+
     var cartes = document.getElementById("cartes");
     var imageTresh = document.getElementById("img")
     var msgBienvenue = document.getElementById("title")
     var msgLesCreateurs = document.getElementById("title2")
     var barre = document.getElementById("barre")
-    
-    
+
+
 
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
@@ -51,41 +51,41 @@ function afficheParties(nomJoueur){
     msgBienvenue.style.display = 'none'
     barre.innerHTML = 'Voici les parties de ' + nomJoueur
 
-    
+
     //Récupération de la zone d'affichage des parties
     const app = document.getElementById('application')
     app.innerHTML = "" //"clear" de l'affichage des parties
     app.style.display = 'flex'
-    
-    
+
+
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
-    var key = 'RGAPI-e7e07f02-da5c-4e51-b23f-14974c0faa88'
+    var key = 'RGAPI-d1e26515-2354-4486-a4dc-e71b81e003d6'
     var pseudo = nomJoueur
     requestSummoner.open('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+pseudo+'?api_key='+key, true)
-    
+
     requestSummoner.onload = function() {
     // Begin accessing JSON data here
     var dataSummoner = JSON.parse(this.response)
-    
+
     if (this.status == 200) {
             const p = document.createElement('p')
             const liste = document.createElement('ul')
             const test = document.createElement('p')
-            p.textContent ="Joueur : " + dataSummoner.name +"\t Level : "+ dataSummoner.summonerLevel   
-            
+            p.textContent ="Joueur : " + dataSummoner.name +"\t Level : "+ dataSummoner.summonerLevel
+
             //Création de la requête pour l'historique des matchs
             var accountId = dataSummoner.accountId
             var requestMatchList = new XMLHttpRequest()
             requestMatchList.open('GET','https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+accountId+'?api_key='+key, true)
-    
+
             requestMatchList.onload = function(){
                 var dataMatchList = JSON.parse(this.response)
-    
+
                 if(this.status == 200){
-    
+
                     for(var i= 0; i<12 ;i++){
-                        
+
                         //Création de la requête pour les détails d'un match
                         var gameId      = dataMatchList.matches[i].gameId
                         var requestMatchId = new XMLHttpRequest()
@@ -97,7 +97,7 @@ function afficheParties(nomJoueur){
                                 var role        = dataMatchList.matches[i].role
                                 var lane        = dataMatchList.matches[i].lane
                                 var numChampion = dataMatchList.matches[i].champion
-                                
+
                                 var date        = convertDateFormat( (new Date(dataMatchList.matches[i].timestamp).toString() ) )
                                 var duree = toMinute(dataMatchId.gameDuration)
                                 //Récupération des infos de victoire ou non
@@ -105,10 +105,12 @@ function afficheParties(nomJoueur){
                                 var participant         = dataMatchId.participants.find(participant => participant.participantId == participantIdentity.participantId)
                                 var teamId              = participant.teamId
                                 var team                = dataMatchId.teams.find(team => team.teamId == teamId)
-                                
-                                
 
-                                //Création des emplacements 
+
+                                var kda =  participant.stats.kills.toString()+" / "+participant.stats.deaths.toString()+" / "+ participant.stats.assists.toString()
+
+
+                                //Création des emplacements
                                 var emplacement = document.createElement('div')
                                 emplacement.setAttribute('class', "col-xl-4 col-md-6")
                                 app.appendChild(emplacement)
@@ -129,33 +131,26 @@ function afficheParties(nomJoueur){
                                 cardDate.setAttribute('class', "card-title1")
                                 cardDate.textContent = date
                                 card.appendChild(cardDate)
-                                
+
                                 //Création de la durée de la card
                                 var cardDuree = document.createElement('div')
                                 cardDuree.setAttribute('class', "card-title2")
                                 cardDuree.textContent = duree // ICI IL FAUDRA METTRE LA DUREE
                                 cardDate.appendChild(cardDuree)
 
-                                
 
-                                //Création du champion
-                                var cardChampion = document.createElement('div')    
+
+                                //Création de la zone champion (icone + KDA)
+                                var cardChampion = document.createElement('div')
                                 cardChampion.setAttribute('class', "champion")
-                    
-                                
-                                //cardChampion.textContent = "KDA TEST" //METTRE LE KDA
-                                //Création de l'image du champion
-                                var imgChamp = document.createElement("img")
-                                imgChamp.setAttribute('class', "img-fluid img-square")
-                                imgChamp.setAttribute('src', "./../data/champImg/"+numChampion+".png")
-                                cardChampion.appendChild(imgChamp)
-                                cardChampion.textContent += 'TEST KDA'
-                                
-                        
+
+                                cardChampion.innerHTML = "<img class=\"img-fluid img-square\" src=\"../data/champImg/"+numChampion+".png\" alt=\"image du champion\"/>"+ kda
+
+
                                 card.appendChild(cardChampion)
 
 
-                                //Création du footer 
+                                //Création du footer
                                 var footer = document.createElement('div')
                                 footer.setAttribute('class', "card-footer d-flex align-items-center justify-content-between")
                                 //Création du lien vers la partie
@@ -173,32 +168,32 @@ function afficheParties(nomJoueur){
                                 containerFleche.appendChild(fleche)
 
                                 card.appendChild(footer)
-                                
-                                
-    
-                            
-    
+
+
+
+
+
                             } else {
                                 console.log('Erreur dans le chargement des infos de la partie')
                             }
                         }
-    
+
                         requestMatchId.send()
-    
+
                     }
-    
+
                 } else {
                     console.log('Erreur dans le chargement de la liste des matchs')
                 }
             }
             requestMatchList.send()
 
-    
-    
+
+
         } else {
             console.log('Erreur dans le chargement des infos du joueur')
         }
     }
-    
+
     requestSummoner.send()
-} 
+}
