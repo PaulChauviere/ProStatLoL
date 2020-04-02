@@ -156,7 +156,8 @@ function afficheParties(nomJoueur){
                                 //Création du lien vers la partie
                                 var lienPartie = document.createElement('a')
                                 lienPartie.setAttribute('class',"small text-white stretched-link")
-                                lienPartie.setAttribute('onclick', "afficheDetailsPartie("+gameId+", "+accountId+")")
+                                lienPartie.setAttribute('onclick', "afficheDetailsPartie("+gameId.toString()+", \""+accountId.toString()+"\")")
+                                lienPartie.setAttribute('href', "#")
                                 lienPartie.textContent = 'Voir les détails'
                                 footer.appendChild(lienPartie)
                                 ///Création de la flèche
@@ -196,4 +197,12 @@ function afficheParties(nomJoueur){
     }
 
     requestSummoner.send()
+}
+
+function afficheDetailsPartie(idJoueur, idPartie){
+    const app = document.getElementById('application')
+    app.innerHTML = "" //"clear" de l'affichage des parties
+    // app.style.display = 'none'
+
+
 }
