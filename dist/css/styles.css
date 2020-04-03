@@ -1754,7 +1754,6 @@ pre code {
   text-align: center;
   font-size: 0.9em;
   border-top: 2px solid #dddddd;
-  border-bottom: 2px solid #dddddd;
 }
 
 .resumePartie th{
@@ -1788,6 +1787,14 @@ pre code {
 
 .tabSeparation{
   border-right: 2px solid #dddddd;
+}
+
+.separateur{
+  width: 100%;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 2px solid #dddddd;
+  margin-top: 3%;
 }
 
 .table th,
@@ -1832,6 +1839,111 @@ pre code {
 }
 
 .progress-done {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-creep {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-objectif {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-degobj {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-kda {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-degchamp {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-mort {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.progress-done-mort {
 	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
   box-shadow: 0 3px 3px -5px #f83600;
   /* , 0 2px 5px #f9d423; */

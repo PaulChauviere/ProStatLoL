@@ -12,6 +12,7 @@
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
         <script src="./js/scripts.js"></script>
+        
             
     </head>
 
@@ -174,6 +175,10 @@
                             <li class="breadcrumb-item" class="barre">Voyons un peu tes statistiques @pseudo !</li>
                             <li class="breadcrumb-item" class="barre"><img class="img-fluid img-squareDetail" src="../data/champImg/50.png\" alt="image du champion"><img class="img-fluid img-squareDetail" src="../data/rangImg/Emblem_Grandmaster.png\" alt="rang"><img class="img-fluid img-squareDetail" src="../data/posteImg/Position_Grandmaster-Support.png\" alt="image du champion"></li>
                             <li class="breadcrumb-item" class="barre" id="rang" >Or IV - 69 LP</li>
+                            
+                            <div class="separateur">
+                                <p>Farming</p>
+                            </div>
 
                             <TABLE class="statJoueur">
                                 <TR>
@@ -182,20 +187,55 @@
                                     <TH class="th"> Participation : </TH>
                                     <TH class="th">
                                         <div class="pourcentage">
-                                            <div class="progress-done" data-done="80">
-                                                70%
+                                            <div class="progress-done progress-done-creep" data-done="80">
+                                                80%
                                             </div>
-                                            <script type="text/javascript">
-                                                const progress = document.querySelector('.progress-done');
-    
-                                                    progress.style.width = progress.getAttribute('data-done') + '%';
-                                                    progress.style.opacity = 1;
-                                            </script>
+                                        </div>                                        
+                                    </TH>
+                                </TR>
+                            </TABLE> 
+
+                            <div class="separateur">
+                                <p>Objectifs</p>
+                            </div>
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Objectifs capturés </TH>
+                                    <TH class="th"> 5 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress-done progress-done-objectif" data-done="50">
+                                                50%
+                                            </div>                                            
+                                        </div>                                        
+                                    </TH>
+                                </TR>
+                            </TABLE> 
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Degats aux objectifs </TH>
+                                    <TH class="th"> 20 000 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress progress-done-degobj" data-done="10">
+                                                10%
+                                            </div>
+
                                         </div>
                                         
                                     </TH>
                                 </TR>
-                            </TABLE> 
+                            </TABLE>
+
+                            
+
+                            <div class="separateur">
+                                <p>K / D / A</p>
+                            </div>
 
                             <TABLE class="statJoueur">
                                 <TR>
@@ -204,20 +244,95 @@
                                     <TH class="th"> Participation : </TH>
                                     <TH class="th">
                                         <div class="pourcentage">
-                                            <div class="progress-done" data-done="50">
+                                            <div class="progress progress-done-kda" data-done="70">
                                                 70%
                                             </div>
-                                            <script type="text/javascript">
-                                                const progress = document.querySelector('.progress-done');
-    
-                                                    progress.style.width = progress.getAttribute('data-done') + '%';
-                                                    progress.style.opacity = 1;
-                                            </script>
                                         </div>
                                         
                                     </TH>
                                 </TR>
-                            </TABLE> 
+                            </TABLE>
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Degats aux champions ennemies </TH>
+                                    <TH class="th"> 20 000 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress progress-done-degchamp" data-done="50">
+                                                60%
+                                            </div>
+                                        </div>
+                                        
+                                    </TH>
+                                </TR>
+                            </TABLE>
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Morts </TH>
+                                    <TH class="th"> 11 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress progress-done-mort" data-done="20">
+                                                20%
+                                            </div>
+                                        </div>
+                                        
+                                    </TH>
+                                </TR>
+                            </TABLE>
+
+                            <div class="separateur">
+                                <p>Vision</p>
+                            </div>
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Score de vision </TH>
+                                    <TH class="th"> 5 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress progress-done-vision" data-done="30">
+                                                30
+                                            </div>
+                                        </div>                                        
+                                    </TH>
+                                </TR>
+                            </TABLE>
+
+                            <script type="text/javascript">
+                                const progress = document.querySelector('.progress-done-creep');
+                                progress.style.width = progress.getAttribute('data-done') + '%';
+                                progress.style.opacity = 1;
+
+                                const progress2 = document.querySelector('.progress-done-objectif');
+                                progress2.style.width = progress2.getAttribute('data-done') + '%';
+                                progress2.style.opacity = 1;
+
+                                const progress3 = document.querySelector('.progress-done-degobj');
+                                progress3.style.width = progress3.getAttribute('data-done') + '%';
+                                progress3.style.opacity = 1;
+
+                                const progress4 = document.querySelector('.progress-done-kda');
+                                progress4.style.width = progress4.getAttribute('data-done') + '%';
+                                progress4.style.opacity = 1;
+
+                                const progress5 = document.querySelector('.progress-done-degchamp');
+                                progress5.style.width = progress5.getAttribute('data-done') + '%';
+                                progress5.style.opacity = 1;
+
+                                const progress6 = document.querySelector('.progress-done-mort');
+                                progress6.style.width = progress6.getAttribute('data-done') + '%';
+                                progress6.style.opacity = 1;
+
+                                const progress7 = document.querySelector('.progress-done-vision');
+                                progress7.style.width = progress7.getAttribute('data-done') + '%';
+                                progress7.style.opacity = 1;
+                            </script>
                             
                         </ol>
                         
