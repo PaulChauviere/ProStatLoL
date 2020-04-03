@@ -132,6 +132,10 @@ dl {
   margin-bottom: 1rem;
 }
 
+li{
+  text-align: center;
+}
+
 ol ol,
 ul ul,
 ol ul,
@@ -517,6 +521,12 @@ mark,
   margin-right: 2%;
   margin-top: 1%;
   margin-bottom: 1%;
+}
+
+.img-squareStat{
+  max-width: 20%;
+  height: auto;
+
 }
 
 .img-thumbnail {
@@ -1738,6 +1748,15 @@ pre code {
   border-bottom: 2px solid #dddddd;
 }
 
+.statJoueur{
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  font-size: 0.9em;
+  border-top: 2px solid #dddddd;
+  border-bottom: 2px solid #dddddd;
+}
+
 .resumePartie th{
   padding-top: 1%;
   padding-bottom: 1%;
@@ -1802,6 +1821,35 @@ pre code {
 
 .ligneJoueur{
   font-weight: bold;
+}
+
+.pourcentage {
+	background-color: #d8d8d8;
+	border-radius: 20px;
+	position: relative;
+	height: auto;
+	width: 300px;
+}
+
+.progress-done {
+	background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+  box-shadow: 0 3px 3px -5px #f83600;
+  /* , 0 2px 5px #f9d423; */
+	border-radius: 20px;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	width: 0;
+	opacity: 0;
+	transition: 1s ease 0.3s;
+}
+
+.th{
+  padding-bottom: 1%;
+  padding-top: 1%;
+  width: 25%;
 }
 
 .table-sm th,
@@ -4671,9 +4719,6 @@ input[type=button].btn-block {
   border-radius: 0.25rem;
 }
 
-#barre{
-  text-align: center;
-}
 
 .breadcrumb-item + .breadcrumb-item {
   padding-left: .5rem;

@@ -32,7 +32,7 @@
                     <div class="container">
                         <h1 class="mt-4" id="title">Bienvenue sur ProStat LoL, Invocateurs et Invocatrices !</h1>
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item" id="barre">Tape ton pseudo dans la barre de recherche, et découvre tes statistiques !</li>
+                            <li class="breadcrumb-item">Tape ton pseudo dans la barre de recherche, et découvre tes statistiques !</li>
                         </ol>
                         <h2 class="mt-3" id="title2">Les créateurs du site : </h2>
                         <div class="row" id="cartes">
@@ -171,9 +171,54 @@
                         </div>
 
                         <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item" id="barre">Voyons un peu tes statistiques @pseudo !</li>
-                            <li class="breadcrumb-item" id="barre"><img class="img-fluid img-squareDetail" src="../data/champImg/50.png\" alt="image du champion"><img class="img-fluid img-squareDetail" src="../data/rangImg/Emblem_Grandmaster.png\" alt="rang"><img class="img-fluid img-squareDetail" src="../data/posteImg/Position_Grandmaster-Support.png\" alt="image du champion"></li>
-                            <li class="breadcrumb-item" id="barre">Or IV - 69 LP</li>
+                            <li class="breadcrumb-item" class="barre">Voyons un peu tes statistiques @pseudo !</li>
+                            <li class="breadcrumb-item" class="barre"><img class="img-fluid img-squareDetail" src="../data/champImg/50.png\" alt="image du champion"><img class="img-fluid img-squareDetail" src="../data/rangImg/Emblem_Grandmaster.png\" alt="rang"><img class="img-fluid img-squareDetail" src="../data/posteImg/Position_Grandmaster-Support.png\" alt="image du champion"></li>
+                            <li class="breadcrumb-item" class="barre" id="rang" >Or IV - 69 LP</li>
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Creeps tués </TH>
+                                    <TH class="th"> 120 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/minion.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress-done" data-done="80">
+                                                70%
+                                            </div>
+                                            <script type="text/javascript">
+                                                const progress = document.querySelector('.progress-done');
+    
+                                                    progress.style.width = progress.getAttribute('data-done') + '%';
+                                                    progress.style.opacity = 1;
+                                            </script>
+                                        </div>
+                                        
+                                    </TH>
+                                </TR>
+                            </TABLE> 
+
+                            <TABLE class="statJoueur">
+                                <TR>
+                                    <TH class="th"> Kill / Assistance </TH>
+                                    <TH class="th"> 12/40 <img class="img-fluid img-squareStat" src="../data/ressourcesImg/score.png\" alt="image du champion"> </TH>
+                                    <TH class="th"> Participation : </TH>
+                                    <TH class="th">
+                                        <div class="pourcentage">
+                                            <div class="progress-done" data-done="50">
+                                                70%
+                                            </div>
+                                            <script type="text/javascript">
+                                                const progress = document.querySelector('.progress-done');
+    
+                                                    progress.style.width = progress.getAttribute('data-done') + '%';
+                                                    progress.style.opacity = 1;
+                                            </script>
+                                        </div>
+                                        
+                                    </TH>
+                                </TR>
+                            </TABLE> 
+                            
                         </ol>
                         
                         <div class="row">
