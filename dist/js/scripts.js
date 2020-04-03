@@ -60,7 +60,7 @@ function afficheParties(nomJoueur){
 
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
-    var key = 'RGAPI-d1e26515-2354-4486-a4dc-e71b81e003d6'
+    var key = 'RGAPI-c7886d4f-adf6-46b1-8f6a-69b8af2d42b6'
     var pseudo = nomJoueur
     requestSummoner.open('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+pseudo+'?api_key='+key, true)
 

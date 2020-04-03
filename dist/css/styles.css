@@ -69,10 +69,11 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 }
 
 .footer{
-  position: absolute;
-  bottom: 0;
+  /* position: absolute;
+  bottom: 0; */
   width: 100%;
-  height: 5%;
+  padding-top: 2%;
+  padding-bottom: 2%;
   background-color: var(--bg-dark);
 }
 
@@ -507,6 +508,15 @@ mark,
   max-width: 20%;
   height: auto;
   margin-right: 5%;
+}
+
+.img-squareDetail{
+  max-width: 7.5%;
+  height: auto;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 1%;
+  margin-bottom: 1%;
 }
 
 .img-thumbnail {
@@ -1716,7 +1726,7 @@ pre code {
   font-size: 0.9em;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
-  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .resumePartie{
@@ -1733,12 +1743,28 @@ pre code {
   padding-bottom: 1%;
 }
 
+.thVictoire{
+  color: var(--green);
+}
+
+.thDefaite{
+  color: var(--red);
+}
+
 .equipeGauche{
   text-align: left;
 }
 
 .equipeDroite{
   text-align: right;
+}
+
+.equipeVictoire{
+  background-color: var(--green);
+}
+
+.equipeDefaite{
+  background-color: var(--red);
 }
 
 .tabSeparation{
@@ -1750,8 +1776,11 @@ pre code {
   padding: 12px 15px;
 }
 
+.table td{
+  width: 10%;
+}
+
 .table thead tr {
-  background-color: var(--orange);
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -1765,6 +1794,15 @@ pre code {
   background-color: #f3f3f3;
 }
 
+.img-squareTab{
+  max-width: 60%;
+  height: auto;
+  margin-right: 5%;
+}
+
+.ligneJoueur{
+  font-weight: bold;
+}
 
 .table-sm th,
 .table-sm td {
@@ -4644,7 +4682,7 @@ input[type=button].btn-block {
   display: inline-block;
   padding-right: .5rem;
   color: #6c757d;
-  content: "/";
+  /* content: "/"; */
 }
 .breadcrumb-item + .breadcrumb-item:hover::before {
   text-decoration: underline;
