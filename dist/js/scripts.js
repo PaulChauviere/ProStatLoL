@@ -1,3 +1,8 @@
+//Constantes du code 
+const key = 'RGAPI-abb0b886-e2cb-4a56-8bba-744f725d6bff'
+//Fin constantes
+
+
 function convertDateFormat(uneDate){
     var chaineDate = uneDate.split(' ')
     switch(chaineDate[1]){
@@ -60,7 +65,7 @@ function afficheParties(nomJoueur){
 
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
-    var key = 'RGAPI-c7886d4f-adf6-46b1-8f6a-69b8af2d42b6'
+        //const key = 'RGAPI-abb0b886-e2cb-4a56-8bba-744f725d6bff'
     var pseudo = nomJoueur
     requestSummoner.open('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'+pseudo+'?api_key='+key, true)
 
@@ -199,10 +204,190 @@ function afficheParties(nomJoueur){
     requestSummoner.send()
 }
 
-function afficheDetailsPartie(idJoueur, idPartie){
+function afficheDetailsPartie(idPartie, idJoueur){
+
     const app = document.getElementById('application')
     app.innerHTML = "" //"clear" de l'affichage des parties
-    // app.style.display = 'none'
 
+    var barre = document.getElementById("zoneBarre")
+    barre.style.display = 'none'
+  
+    console.log("lid game ets : "+idPartie.toString())
+    var requestMatchId = new XMLHttpRequest()
+    requestMatchId.open('GET','https://euw1.api.riotgames.com/lol/match/v4/matches/'+idPartie+'?api_key='+key, false)
+    requestMatchId.onload = function(){
+        //Récupération des détails de la game
+        var gameData = JSON.parse(this.response)
 
+        if(this.status == 200){
+            var redKills = 0;
+            var blueKills = 0;
+            var redAssists = 0;
+            var blueAssists = 0;
+            var redDeaths = 0;
+            var blueDeaths = 0;
+
+            var redWin = false;
+
+            for(var i=0 ; i<5 ; i++){
+                redKills += gameData.participants[i+5].stats.kills
+                blueKills += gameData.participants[i].stats.kills
+
+                redAssists += gameData.participants[i+5].stats.assists
+                blueAssists += gameData.participants[i].stats.assists
+
+                redDeaths += gameData.participants[i+5].stats.deaths
+                blueDeaths += gameData.participants[i].stats.deaths
+            }
+            //Création de l'en-tête de la page (quelle équipe a gagné + KDA d'équipe + type de la game et durée)
+            var lVictoire = document.createElement('table')
+            lVictoire.setAttribute('class','resumePartie')
+            app.appendChild(lVictoire)
+
+            var souslVictoire = document.createElement('tr')
+            lVictoire.appendChild(souslVictoire)
+
+            var motDefaite = document.createElement('th')
+            motDefaite.setAttribute('class', "thDefaite")
+            motDefaite.textContent = 'Défaite'
+
+            var motVictoire  = document.createElement('th')
+            motVictoire.setAttribute('class','thVictoire')
+            motVictoire.textContent = 'Victoire'
+
+            if(gameData.teams[0].win == 'Win'){
+                souslVictoire.appendChild(motVictoire)
+            }
+            else{
+                souslVictoire.appendChild(motDefaite)
+            }
+            
+
+            var kdaBlue = document.createElement('th')
+            kdaBlue.textContent = blueKills.toString()+" / "+blueDeaths.toString()+" / "+blueAssists
+            souslVictoire.appendChild(kdaBlue)
+
+            var typeEtDuree = document.createElement('th')
+            typeEtDuree.textContent = 'ranked solo/duo - 26min59'  //METTRE LE TYPE DE GAME + LA DUREE
+            souslVictoire.appendChild(typeEtDuree)
+
+            var kdaRed = document.createElement('th')
+            kdaRed.textContent = redKills.toString()+" / "+redDeaths.toString()+" / "+redAssists
+            souslVictoire.appendChild(kdaRed)
+
+            if(gameData.teams[0].win == 'Win'){
+                souslVictoire.appendChild(motDefaite)
+            }
+            else{
+                souslVictoire.appendChild(motVictoire)
+            }
+            
+            //Fin en-tête de la page
+
+            //Création du tableau des scores
+            var tableau = document.createElement('table')
+            tableau.setAttribute('class', 'table')
+            app.appendChild(tableau)
+
+                //Création de la première ligne du tableau
+                var head = document.createElement('thead')
+                //Recopiage du code HTML puisque cette partie est fixe
+                if(gameData.teams[0].win == 'Fail'){//Défaite à gauche, victoire à droite
+                    head.innerHTML = '<TR><th class=\"equipeGauche equipeDefaite\">Champion</th><th class=\"equipeGauche equipeDefaite\">Pseudo</th><th class=\"equipeGauche equipeDefaite\">K/D/A</th><th class=\"equipeGauche equipeDefaite\">CS</th><th class=\"tabSeparation equipeDefaite\">Gold</th><th class=\"equipeDroite equipeVictoire\">Gold</th><th class=\"equipeDroite equipeVictoire\">CS</th><th class=\"equipeDroite equipeVictoire\">K/D/A</th><th class=\"equipeDroite equipeVictoire\">Pseudo</th><th class=\"equipeDroite equipeVictoire\">Champion</th></TR>'
+                }
+                else{//Victoire à gauche, défaite à droite
+                    head.innerHTML = '<TR><th class=\"equipeGauche equipeVictoire\">Champion</th><th class=\"equipeGauche equipeVictoire\">Pseudo</th><th class=\"equipeGauche equipeVictoire\">K/D/A</th><th class=\"equipeGauche equipeVictoire\">CS</th><th class=\"tabSeparation equipeVictoire\">Gold</th><th class=\"equipeDroite equipeDefaite\">Gold</th><th class=\"equipeDroite equipeDefaite\">CS</th><th class=\"equipeDroite equipeDefaite\">K/D/A</th><th class=\"equipeDroite equipeDefaite\">Pseudo</th><th class=\"equipeDroite equipeDefaite\">Champion</th></TR>'
+                }
+                tableau.appendChild(head)
+                //Fin première ligne
+
+                //Création corps du tableau
+                var tBody = document.createElement('tbody')
+                tableau.appendChild(tBody)
+                    //Création des lignes
+                    for(var i=0 ; i<5 ; i++){
+                        var ligne = document.createElement('tr')
+                        tBody.appendChild(ligne)
+
+                        //Partie gauche
+                        var gChampion = document.createElement('td')
+                        gChampion.setAttribute('class',"equipeGauche")
+                        gChampion.innerHTML = "<img class=\"img-fluid img-squareTab\" src=\"../data/champImg/"+gameData.participants[i].championId.toString()+".png\" alt=\"image du champion\"/>"
+                        ligne.appendChild(gChampion)
+
+                        var gPseudo = document.createElement('td')
+                        gPseudo.setAttribute('class',"equipeGauche")
+                        gPseudo.textContent = gameData.participantIdentities[i].player.summonerName
+                        ligne.appendChild(gPseudo)
+
+                        var gKDA = document.createElement('td')
+                        gKDA.setAttribute('class',"equipeGauche")
+                        gKDA.textContent = gameData.participants[i].stats.kills.toString()+" / "+gameData.participants[i].stats.deaths.toString()+" / "+gameData.participants[i].stats.assists.toString()
+                        ligne.appendChild(gKDA)
+
+                        var gCreep = document.createElement('td')
+                        gCreep.setAttribute('class',"equipeGauche")
+                        gCreep.textContent = (gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled).toString()
+                        ligne.appendChild(gCreep)
+
+                        var gGold = document.createElement('td')
+                        gGold.setAttribute('class',"tabSeparation")
+                        gGold.textContent = gameData.participants[i].stats.goldEarned.toString()
+                        ligne.appendChild(gGold)
+
+                        if(gameData.participantIdentities[i].player.accountId == idJoueur){
+                            gPseudo.setAttribute('class','equipeGauche ligneJoueur')
+                            gCreep.setAttribute('class','equipeGauche ligneJoueur')
+                            gKDA.setAttribute('class','equipeGauche ligneJoueur')
+                            gGold.setAttribute('class','tabSeparation ligneJoueur ')
+                        }
+                        //Fin partie gauche
+
+                        //Partie droite
+                        var dGold = document.createElement('td')
+                        dGold.setAttribute('class',"equipeDroite")
+                        dGold.textContent = gameData.participants[i+5].stats.goldEarned.toString()
+                        ligne.appendChild(dGold) 
+                        
+                        var dCreep = document.createElement('td')
+                        dCreep.setAttribute('class',"equipeDroite")
+                        dCreep.textContent = (gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled).toString()
+                        ligne.appendChild(dCreep)
+
+                        var dKDA = document.createElement('td')
+                        dKDA.setAttribute('class',"equipeDroite")
+                        dKDA.textContent = gameData.participants[i+5].stats.kills.toString()+" / "+gameData.participants[i+5].stats.deaths.toString()+" / "+gameData.participants[i+5].stats.assists.toString()
+                        ligne.appendChild(dKDA)
+
+                        var dPseudo = document.createElement('td')
+                        dPseudo.setAttribute('class',"equipeDroite")
+                        dPseudo.textContent = gameData.participantIdentities[i+5].player.summonerName
+                        ligne.appendChild(dPseudo)
+
+                        var dChampion = document.createElement('td')
+                        dChampion.setAttribute('class',"equipeDroite")
+                        dChampion.innerHTML = "<img class=\"img-fluid img-squareTab\" src=\"../data/champImg/"+gameData.participants[i+5].championId.toString()+".png\" alt=\"image du champion\"/>"
+                        ligne.appendChild(dChampion)
+
+                        console.log("id joueur : "+idJoueur+"     id participant : "+gameData.participantIdentities[i+5].accountId)
+                        if(gameData.participantIdentities[i+5].player.accountId == idJoueur){
+                            console.log("on rentre")
+                            dPseudo.setAttribute('class','equipeDroite ligneJoueur')
+                            dCreep.setAttribute('class','equipeDroite ligneJoueur')
+                            dKDA.setAttribute('class','equipeDroite ligneJoueur')
+                            dGold.setAttribute('class','equipeDroite ligneJoueur')
+                        }
+                                             
+                        //Fin partie droite
+                    }
+                
+                //Fin lignes
+            //Fin corps du tableau
+            //Création des 5 lignes (contenant chacune 2 joueurs -> un perdant et un gagnant)
+        //Fin tableau des scores
+
+        //Création détails
+        }
+    }
+    requestMatchId.send()
 }
