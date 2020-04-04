@@ -592,11 +592,9 @@ pre code {
 }
 
 .container {
-  position: relative;
   width: 100%;
   height: 100%;
   padding-top: 3%;
-  padding-bottom: 5%;
   margin-right: auto;
   margin-left: auto;
 }
@@ -1746,7 +1744,6 @@ pre code {
   border-collapse: collapse;
   width: 100%;
   text-align: center;
-  margin-top: 2%;
   font-size: 0.9em;
   border-top: 2px solid #dddddd;
   border-bottom: 2px solid #dddddd;
@@ -2813,6 +2810,23 @@ fieldset:disabled a.btn {
 }
 .btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus, .show > .btn-success.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5);
+}
+
+.btn-retour{
+  background-color: var(--orange);
+  border-color: var(--orange);
+  border-radius: 10px;
+  display:block;
+  width:150px;
+  line-height:50px;
+  text-align:center;
+  text-decoration:none;
+}
+
+.btn-retour:hover{
+  color: #fff;
+  background-color: var(--dark-orange);
+  border-color: var(--dark-orange);
 }
 
 .btn-info {

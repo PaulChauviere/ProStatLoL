@@ -123,11 +123,9 @@ function afficheParties(nomJoueur){
                                 var card = document.createElement('div')
                                 if(team.win == "Win"){
                                     card.setAttribute('class', "card bg-card-win text-white mb-4 card-parties")
-                                    console.log("vert")
                                 }
                                 else{
                                     card.setAttribute('class', "card bg-card-lose text-white mb-4 card-parties")
-                                    console.log("rouge")
                                 }
                                 emplacement.appendChild(card)
 
@@ -206,13 +204,12 @@ function afficheParties(nomJoueur){
 
 function afficheDetailsPartie(idPartie, idJoueur){
 
-    const app = document.getElementById('application')
-    app.innerHTML = "" //"clear" de l'affichage des parties
+    document.getElementById("application").style.display = "none";
+    document.getElementById("barre").style.display = "none";
 
-    var barre = document.getElementById("zoneBarre")
-    barre.style.display = 'none'
-  
-    console.log("lid game ets : "+idPartie.toString())
+    const descr = document.getElementById('description')
+    //descr.innerHTML = ""
+
     var requestMatchId = new XMLHttpRequest()
     requestMatchId.open('GET','https://euw1.api.riotgames.com/lol/match/v4/matches/'+idPartie+'?api_key='+key, false)
     requestMatchId.onload = function(){
@@ -242,7 +239,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
             //Création de l'en-tête de la page (quelle équipe a gagné + KDA d'équipe + type de la game et durée)
             var lVictoire = document.createElement('table')
             lVictoire.setAttribute('class','resumePartie')
-            app.appendChild(lVictoire)
+            descr.appendChild(lVictoire)
+
 
             var souslVictoire = document.createElement('tr')
             lVictoire.appendChild(souslVictoire)
@@ -287,7 +285,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             //Création du tableau des scores
             var tableau = document.createElement('table')
             tableau.setAttribute('class', 'table')
-            app.appendChild(tableau)
+            descr.appendChild(tableau)
 
                 //Création de la première ligne du tableau
                 var head = document.createElement('thead')
@@ -369,9 +367,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         dChampion.innerHTML = "<img class=\"img-fluid img-squareTab\" src=\"../data/champImg/"+gameData.participants[i+5].championId.toString()+".png\" alt=\"image du champion\"/>"
                         ligne.appendChild(dChampion)
 
-                        console.log("id joueur : "+idJoueur+"     id participant : "+gameData.participantIdentities[i+5].accountId)
                         if(gameData.participantIdentities[i+5].player.accountId == idJoueur){
-                            console.log("on rentre")
                             dPseudo.setAttribute('class','equipeDroite ligneJoueur')
                             dCreep.setAttribute('class','equipeDroite ligneJoueur')
                             dKDA.setAttribute('class','equipeDroite ligneJoueur')
@@ -388,6 +384,37 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         //Création détails
         }
+
+        var bouton = document.createElement('button')
+        var t = document.createTextNode("Retour");       // Créer un noeud textuel
+        bouton.appendChild(t);
+
+        bouton.setAttribute('class','btn-retour')
+        bouton.setAttribute('onclick','retourApp()')
+        //bouton.setAttribute('id','btnR')
+        //document.getElementById("bouton").innerHTML="Retour"
+
+        descr.appendChild(bouton)
+
+        
+
+        
     }
+
     requestMatchId.send()
+
+    descr.scrollIntoView();
 }
+
+
+
+
+function retourApp(){
+    document.getElementById("application").style.display = "flex";
+    document.getElementById("barre").style.display = "block";
+    document.getElementById("description").innerHTML =""
+
+}
+
+
+
