@@ -483,6 +483,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
         const progress = document.querySelector('.progress-done-creep');
         progress.style.width = progress.getAttribute('data-done') + '%';
         progress.style.opacity = 1;
+
         }
 
         var divBouton = document.createElement('div')
