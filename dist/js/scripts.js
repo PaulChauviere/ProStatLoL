@@ -436,7 +436,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
         var nbCreepsTue = document.createElement('th')
         nbCreepsTue.setAttribute('class','th')
         
-        
+        //nbCreepsTue.textContent = gameData.participantIdentities[indexJoueur].
         }
 
         var bouton = document.createElement('button')
