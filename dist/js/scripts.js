@@ -1,5 +1,5 @@
 //Constantes du code 
-const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
+const key = 'RGAPI-abb0b886-e2cb-4a56-8bba-744f725d6bff'
 //Fin constantes
 
 
