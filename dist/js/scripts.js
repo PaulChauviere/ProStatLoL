@@ -1,5 +1,13 @@
 //Constantes du code 
-const key = 'RGAPI-abb0b886-e2cb-4a56-8bba-744f725d6bff'
+<<<<<<< HEAD
+<<<<<<< HEAD
+const key = 'RGAPI-ee3d18be-a554-412a-92dd-411443751ede'
+=======
+const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
+>>>>>>> ab01afa50f717632c4fca92a1f1732ef0af44b3c
+=======
+const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
+>>>>>>> ab01afa50f717632c4fca92a1f1732ef0af44b3c
 //Fin constantes
 
 
@@ -49,6 +57,7 @@ function afficheParties(nomJoueur){
     var barre = document.getElementById("barre")
 
 
+    
 
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
@@ -62,6 +71,8 @@ function afficheParties(nomJoueur){
     app.innerHTML = "" //"clear" de l'affichage des parties
     app.style.display = 'flex'
 
+    var spinner = new Spinner().spin();
+    app.appendChild(spinner.el);
 
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
@@ -185,6 +196,7 @@ function afficheParties(nomJoueur){
                         requestMatchId.send()
 
                     }
+                    spinner.stop();
 
                 } else {
                     console.log('Erreur dans le chargement de la liste des matchs')
@@ -195,7 +207,12 @@ function afficheParties(nomJoueur){
 
 
         } else {
-            console.log('Erreur dans le chargement des infos du joueur')
+            spinner.stop();
+            var msgErreur = document.createElement('div')
+            msgErreur.setAttribute('class','text-center msgErreur')
+            
+            msgErreur.textContent = 'Ce nom d\'invocateur n\'existe pas'
+            app.appendChild(msgErreur)
         }
     }
 
@@ -206,7 +223,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
-
+    
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
 
@@ -283,6 +300,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             //Fin en-tête de la page
 
             //Création du tableau des scores
+            var indexPerso;
             var tableau = document.createElement('table')
             tableau.setAttribute('class', 'table')
             descr.appendChild(tableau)
@@ -304,6 +322,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 tableau.appendChild(tBody)
                     //Création des lignes
                     for(var i=0 ; i<5 ; i++){
+                        
                         var ligne = document.createElement('tr')
                         tBody.appendChild(ligne)
 
@@ -314,6 +333,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         ligne.appendChild(gChampion)
 
                         var gPseudo = document.createElement('td')
+                       
                         gPseudo.setAttribute('class',"equipeGauche")
                         gPseudo.textContent = gameData.participantIdentities[i].player.summonerName
                         ligne.appendChild(gPseudo)
@@ -334,6 +354,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         ligne.appendChild(gGold)
 
                         if(gameData.participantIdentities[i].player.accountId == idJoueur){
+                            indexPerso = i;
                             gPseudo.setAttribute('class','equipeGauche ligneJoueur')
                             gCreep.setAttribute('class','equipeGauche ligneJoueur')
                             gKDA.setAttribute('class','equipeGauche ligneJoueur')
@@ -368,6 +389,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         ligne.appendChild(dChampion)
 
                         if(gameData.participantIdentities[i+5].player.accountId == idJoueur){
+                            indexPerso = i+5;
                             dPseudo.setAttribute('class','equipeDroite ligneJoueur')
                             dCreep.setAttribute('class','equipeDroite ligneJoueur')
                             dKDA.setAttribute('class','equipeDroite ligneJoueur')
@@ -383,6 +405,45 @@ function afficheDetailsPartie(idPartie, idJoueur){
         //Fin tableau des scores
 
         //Création détails
+
+        var listeDetails = document.createElement('ol')
+        listeDetails.setAttribute('class','breadcrumb mb-4')
+        descr.appendChild(listeDetails)
+
+        var enTete = document.createElement('il')
+        enTete.setAttribute('class','breadcrumb-item','barre')
+        enTete.innerHTML = 'Voyons un peu tes statistiques ' + gameData.participantIdentities[indexPerso].player.summonerName + ' !'
+        listeDetails.appendChild(enTete)
+
+        var imageChamp = document.createElement('li')
+        imageChamp.setAttribute('class','breadcrumb-item','barre')
+        imageChamp.innerHTML = "<img class=\"img-fluid img-squareStat\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
+        listeDetails.appendChild(imageChamp)
+
+        var separator = document.createElement('div')
+        separator.setAttribute('class','separateur')
+        var farm = document.createElement('p')
+        farm.textContent = 'Farming'
+        separator.appendChild(farm)
+        listeDetails.appendChild(separator)
+
+        var tableauStatJoueur = document.createElement('table')
+        tableauStatJoueur.setAttribute('class','statJoueur')
+        listeDetails.appendChild(tableauStatJoueur)
+
+        var statCreeps = document.createElement('tr')
+        tableauStatJoueur.appendChild(statCreeps)
+
+        var creepsTue = document.createElement('th')
+        creepsTue.setAttribute('class','th')
+        creepsTue.textContent = 'Creeps tués'
+
+        statCreeps.appendChild(creepsTue)
+
+        var nbCreepsTue = document.createElement('th')
+        nbCreepsTue.setAttribute('class','th')
+        
+        
         }
 
         var bouton = document.createElement('button')
