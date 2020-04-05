@@ -548,7 +548,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             tableauStatObj.setAttribute('class','statJoueur')
             listeDetails.appendChild(tableauStatObj)
             
-                //Début de la ligne creeps
+                //Début de la ligne dommages aux objectifs
                     //Création de la ligne
                     var ligneDmgObj = document.createElement('tr')
                     tableauStatObj.appendChild(ligneDmgObj)
@@ -592,8 +592,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     progressBarreDmgObj.style.width = progressBarreDmgObj.getAttribute('data-done') + '%';
                     progressBarreDmgObj.style.opacity = 1;
                     barreProgDivDmgObj.appendChild(progressBarreDmgObj)
-                //Fin de la ligne creeps
-            //Fin table farming
+                //Fin de la ligne dommages aux objectifs
+            
 
             var separatorKda = document.createElement('div')
             separatorKda.setAttribute('class','separateur')
@@ -602,7 +602,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             separatorKda.appendChild(kda)
             listeDetails.appendChild(separatorKda)
             
-            //TABLE concernant le farming
+            //TABLE concernant le K/D/A
             var tableauStatKda = document.createElement('table')
             tableauStatKda.setAttribute('class','statJoueur')
             listeDetails.appendChild(tableauStatKda)
@@ -742,7 +742,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     progressBarreDeaths.style.width = progressBarreDeaths.getAttribute('data-done') + '%';
                     progressBarreDeaths.style.opacity = 1;
                     barreProgDivDeaths.appendChild(progressBarreDeaths)
-                //Fin de la ligne dommages aux champions ennemies
+                //Fin de la ligne morts
             //Fin table K/D/A
 
             var separatorVision = document.createElement('div')
