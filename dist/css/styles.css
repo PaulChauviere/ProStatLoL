@@ -1743,6 +1743,7 @@ pre code {
 .resumePartie{
   border-collapse: collapse;
   width: 100%;
+  margin-top: 2%;
   text-align: center;
   font-size: 0.9em;
   border-top: 2px solid #dddddd;
@@ -2826,12 +2827,12 @@ fieldset:disabled a.btn {
 .btn-retour:hover{
   color: #fff;
   background-color: var(--dark-orange);
-  bord
-  er-color: var(--dark-orange);
+  border-color: var(--dark-orange);
 }
 
 .divBouton{
   width:100%;
+  margin-bottom: 5%;
 }
 
 .btn-info {
@@ -4849,6 +4850,7 @@ input[type=button].btn-block {
   padding: 0.75rem;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
   list-style: none;
   background-color: #e9ecef;
   border-radius: 0.25rem;

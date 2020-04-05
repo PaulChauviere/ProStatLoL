@@ -216,6 +216,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
+    document.getElementById("zoneBarre").style.display = "none";
 
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
@@ -296,8 +297,14 @@ function afficheDetailsPartie(idPartie, idJoueur){
             var indexPerso;
             var indexTeam;
             var nbCreepsTeam = 0;
+            var nbDmgObjTeam = 0;
+
             var nbCreepsTeamRed = 0;
+            var nbDmgObjTeamRed = 0;
+
             var nbCreepsTeamBlue = 0;
+            var nbDmgObjTeamBlue = 0;
+
             var tableau = document.createElement('table')
             tableau.setAttribute('class', 'table')
             descr.appendChild(tableau)
@@ -344,8 +351,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         gCreep.setAttribute('class',"equipeGauche")
                         gCreep.textContent = (gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled).toString()
                         ligne.appendChild(gCreep)
-                        nbCreepsTeamBlue += gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled
-
+                        
                         var gGold = document.createElement('td')
                         gGold.setAttribute('class',"tabSeparation")
                         gGold.textContent = gameData.participants[i].stats.goldEarned.toString()
@@ -371,7 +377,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         dCreep.setAttribute('class',"equipeDroite")
                         dCreep.textContent = (gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled).toString()
                         ligne.appendChild(dCreep)
-                        nbCreepsTeamRed += gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled
+
+                        
 
                         var dKDA = document.createElement('td')
                         dKDA.setAttribute('class',"equipeDroite")
@@ -397,98 +404,174 @@ function afficheDetailsPartie(idPartie, idJoueur){
                             dGold.setAttribute('class','equipeDroite ligneJoueur')
                         }
 
+                        
                         //Fin partie droite
+
+                        //Calcul des variables d'équipe
+                            nbCreepsTeamRed += gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled
+                            nbDmgObjTeamRed += gameData.participants[i+5].stats.damageDealtToObjectives
+
+                            nbCreepsTeamBlue += gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled
+                            nbDmgObjTeamBlue += gameData.participants[i].stats.damageDealtToObjectives
+                        //Fin calcul des variables d'équipe
                     }
 
-                //Fin lignes
-            //Fin corps du tableau
-            //Création des 5 lignes (contenant chacune 2 joueurs -> un perdant et un gagnant)
-        //Fin tableau des scores
+                
+                
+            //Fin tableau des scores
 
-        //Création détails
-        if(indexPerso <= 5){
-            nbCreepsTeam = nbCreepsTeamBlue
-        }
-        else{
-            nbCreepsTeam = nbCreepsTeamRed
-        }
-        var listeDetails = document.getElementById('details')
+            //Création détails
+            if(indexPerso <= 5){
+                nbCreepsTeam = nbCreepsTeamBlue
+                nbDmgObjTeam = nbDmgObjTeamBlue
+            }
+            else{
+                nbCreepsTeam = nbCreepsTeamRed
+                nbDmgObjTeam = nbDmgObjTeamRed
+            }
 
-        var enTete = document.createElement('li')
-        enTete.setAttribute('class','breadcrumb-item','barre')
-        enTete.innerHTML = 'Voyons un peu tes statistiques ' + gameData.participantIdentities[indexPerso].player.summonerName + ' !'
-        listeDetails.appendChild(enTete)
+            //Remplissage de la zone de détails
+            var emplacementDetails = document.getElementById("details")
 
-        var imageChamp = document.createElement('li')
-        imageChamp.setAttribute('class','breadcrumb-item','barre')
-        imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
-        listeDetails.appendChild(imageChamp)
+            var listeDetails = document.createElement('ol')
+            listeDetails.setAttribute('class',"breadcrumb mb-4")
+            emplacementDetails.appendChild(listeDetails)
 
-        var separator = document.createElement('div')
-        separator.setAttribute('class','separateur')
-        var farm = document.createElement('p')
-        farm.textContent = 'Farming'
-        separator.appendChild(farm)
-        listeDetails.appendChild(separator)
+            var enTete = document.createElement('li')
+            enTete.setAttribute('class','breadcrumb-item','barre')
+            enTete.innerHTML = 'Voyons un peu tes statistiques ' + gameData.participantIdentities[indexPerso].player.summonerName + ' !'
+            listeDetails.appendChild(enTete)
 
-        var tableauStatJoueur = document.createElement('table')
-        tableauStatJoueur.setAttribute('class','statJoueur')
-        listeDetails.appendChild(tableauStatJoueur)
+            var imageChamp = document.createElement('li')
+            imageChamp.setAttribute('class','breadcrumb-item','barre')
+            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
+            listeDetails.appendChild(imageChamp)
 
-        var statCreeps = document.createElement('tr')
-        tableauStatJoueur.appendChild(statCreeps)
+            //Séparateur farming
+            var separatorFarm = document.createElement('div')
+            separatorFarm.setAttribute('class','separateur')
+            var farm = document.createElement('p')
+            farm.textContent = 'Farming'
+            separatorFarm.appendChild(farm)
+            listeDetails.appendChild(separatorFarm)
 
-        var creepsTue = document.createElement('th')
-        creepsTue.setAttribute('class','th')
-        creepsTue.textContent = 'Creeps tués'
+            //TABLE concernant le farming
+                var tableauStatFarm = document.createElement('table')
+                tableauStatFarm.setAttribute('class','statJoueur')
+                listeDetails.appendChild(tableauStatFarm)
+                
+                //Début de la ligne creeps
+                    var statCreeps = document.createElement('tr')
+                    tableauStatFarm.appendChild(statCreeps)
 
-        statCreeps.appendChild(creepsTue)
+                    var creepsTue = document.createElement('th')
+                    creepsTue.setAttribute('class','th')
+                    creepsTue.textContent = 'Creeps tués'
 
-        var nbCreepsTue = document.createElement('th')
-        nbCreepsTue.setAttribute('class','th')
+                    statCreeps.appendChild(creepsTue)
 
-        nbCreepsTue.textContent = gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled
-        statCreeps.appendChild(nbCreepsTue)
+                    //Chiffre + Image
+                    var nbCreepsTue = document.createElement('th')
+                    nbCreepsTue.innerHTML = (gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/minion.png\" alt=\"image du champion\">"
+                    statCreeps.appendChild(nbCreepsTue)
+                    //Fin chiffre + image
 
-        var imgCreep = document.createElement('th')
-        imgCreep.setAttribute('class','th')
-        imgCreep.innerHTML= "<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/minion.png\" alt=\"image creep\"/>"
-        nbCreepsTue.appendChild(imgCreep)
+                    //Texte "Participation :"
+                    var txtParticipationCreep = document.createElement('th')
+                    txtParticipationCreep.setAttribute('class','th')
+                    txtParticipationCreep.textContent = 'Participation :'
+                    statCreeps.appendChild(txtParticipationCreep)
+                    //Fin texte
 
-        var txtParticipation = document.createElement('th')
-        txtParticipation.setAttribute('class','th')
-        txtParticipation.textContent = 'Participation :'
+                    //Création de la colonne
+                    var barreProgCol = document.createElement('th')
+                    barreProgCol.setAttribute('class','th')
+                    statCreeps.appendChild(barreProgCol)
+                    //Création de la div
+                    var barreProgDiv = document.createElement('div')
+                    barreProgDiv.setAttribute('class','pourcentage')
+                    barreProgCol.appendChild(barreProgDiv)
 
-        statCreeps.appendChild(txtParticipation)
+                    var tauxCreepsTue = Math.trunc(((gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled) / nbCreepsTeam)*100)
+                
+                   
 
-        var barreProgCol = document.createElement('th')
-        barreProgCol.setAttribute('class','th')
+                    var progressBarre = document.createElement('div')
+                    progressBarre.setAttribute('class','progress-done progress-done-creep')
 
-        var barreProgDiv = document.createElement('div')
-        barreProgDiv.setAttribute('class','pourcentage')
+                    progressBarre.setAttribute('data-done',tauxCreepsTue) 
+                    progressBarre.textContent = tauxCreepsTue.toString()+"%"
+                    progressBarre.style.width = progressBarre.getAttribute('data-done') + '%';
+                    progressBarre.style.opacity = 1;
+                    barreProgDiv.appendChild(progressBarre)
+                //Fin de la ligne creeps
+            //Fin table farming
 
-        barreProgCol.appendChild(barreProgDiv)
 
-        var tauxCreepsTue = Math.trunc(((gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled * 100) / nbCreepsTeam)*100)
-        console.log(tauxCreepsTue)
-        console.log(nbCreepsTeam)
+            //Séparateur objectifs
+            var separatorObj = document.createElement('div')
+            separatorObj.setAttribute('class','separateur')
+            var obj = document.createElement('p')
+            obj.textContent = 'Objectifs'
+            separatorObj.appendChild(obj)
+            listeDetails.appendChild(separatorObj)
+            
+            //TABLE concernant le farming
+            var tableauStatObj = document.createElement('table')
+            tableauStatObj.setAttribute('class','statJoueur')
+            listeDetails.appendChild(tableauStatObj)
+            
+                //Début de la ligne creeps
+                    //Création de la ligne
+                    var ligneDmgObj = document.createElement('tr')
+                    tableauStatObj.appendChild(ligneDmgObj)
 
-        
+                    var dmgObj = document.createElement('th')
+                    dmgObj.setAttribute('class','th')
+                    dmgObj.textContent = 'Dégats aux objectifs'
+                    ligneDmgObj.appendChild(dmgObj)
 
-        var progressBarre = document.createElement('div')
-        progressBarre.setAttribute('class','progress-done progress-done-creep')
-        progressBarre.setAttribute('data-done',tauxCreepsTue.toString())
-        barreProgDiv.appendChild(progressBarre)
+                    //Chiffre + Image
+                    var nbDmgObj = document.createElement('th')
+                    nbDmgObj.innerHTML = (gameData.participants[indexPerso].stats.damageDealtToObjectives).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    ligneDmgObj.appendChild(nbDmgObj)
+                    //Fin chiffre + image
 
-        const progress = document.querySelector('.progress-done-creep');
-        progress.style.width = progress.getAttribute('data-done') + '%';
-        progress.style.opacity = 1;
+                    //Texte "Participation :"
+                    var txtParticipationDmgObj = document.createElement('th')
+                    txtParticipationDmgObj.setAttribute('class','th')
+                    txtParticipationDmgObj.textContent = 'Participation :'
+                    ligneDmgObj.appendChild(txtParticipationDmgObj)
+                    //Fin texte
 
-        }
+                    //Création de la colonne
+                    var barreProgColDmgObj = document.createElement('th')
+                    barreProgColDmgObj.setAttribute('class','th')
+                    ligneDmgObj.appendChild(barreProgColDmgObj)
+                    //Création de la div
+                    var barreProgDivDmgObj = document.createElement('div')
+                    barreProgDivDmgObj.setAttribute('class','pourcentage')
+                    barreProgColDmgObj.appendChild(barreProgDivDmgObj)
+
+                    var tauxDmgObj = Math.trunc(((gameData.participants[indexPerso].stats.damageDealtToObjectives) / nbDmgObjTeam)*100)
+                
+                    
+
+                    var progressBarreDmgObj = document.createElement('div')
+                    progressBarreDmgObj.setAttribute('class','progress-done progress-done-degobj')
+
+                    progressBarreDmgObj.setAttribute('data-done',tauxDmgObj) 
+                    progressBarreDmgObj.textContent = tauxDmgObj.toString()+"%"
+                    progressBarreDmgObj.style.width = progressBarreDmgObj.getAttribute('data-done') + '%';
+                    progressBarreDmgObj.style.opacity = 1;
+                    barreProgDivDmgObj.appendChild(progressBarreDmgObj)
+                //Fin de la ligne creeps
+            //Fin table farming
+        }//Fin if(this.status == 200)
 
         var divBouton = document.createElement('div')
         divBouton.setAttribute('class',"divBouton")
-        descr.appendChild(divBouton)
+        emplacementDetails.appendChild(divBouton)
 
         var bouton = document.createElement('button')
         var t = document.createTextNode("Retour");       // Créer un noeud textuel
@@ -515,8 +598,12 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
 
 function retourApp(){
+    document.getElementById("zoneBarre").style.display = "flex";
+    document.getElementById("barre").style.display = "flex";
+    
     document.getElementById("application").style.display = "flex";
-    document.getElementById("barre").style.display = "block";
+    
     document.getElementById("description").innerHTML =""
     document.getElementById("details").innerHTML =""
+    
 }
