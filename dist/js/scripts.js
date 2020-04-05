@@ -437,8 +437,12 @@ function afficheDetailsPartie(idPartie, idJoueur){
         nbCreepsTue.setAttribute('class','th')
         
         
-        }
+        }   
 
+        var divBouton = document.createElement('div')
+        divBouton.setAttribute('class',"divBouton")
+        descr.appendChild(divBouton)
+        
         var bouton = document.createElement('button')
         var t = document.createTextNode("Retour");       // Créer un noeud textuel
         bouton.appendChild(t);
@@ -448,7 +452,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
         //bouton.setAttribute('id','btnR')
         //document.getElementById("bouton").innerHTML="Retour"
 
-        descr.appendChild(bouton)
+        divBouton.appendChild(bouton)
 
         
 
