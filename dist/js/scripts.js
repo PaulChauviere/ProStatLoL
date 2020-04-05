@@ -602,15 +602,17 @@ function afficheDetailsPartie(idPartie, idJoueur){
             separatorKda.appendChild(kda)
             listeDetails.appendChild(separatorKda)
             
-            //TABLE concernant le K/D/A
-            var tableauStatKda = document.createElement('table')
-            tableauStatKda.setAttribute('class','statJoueur')
-            listeDetails.appendChild(tableauStatKda)
-            
+            //Début table Kill/Assist
                 //Début de la ligne Kill/Assist
                     //Création de la ligne
+
+                    var tableauStatKillAssist = document.createElement('table')
+                    tableauStatKillAssist.setAttribute('class','statJoueur')
+                    listeDetails.appendChild(tableauStatKillAssist)
+
+
                     var ligneKillAssist = document.createElement('tr')
-                    tableauStatKda.appendChild(ligneKillAssist)
+                    tableauStatKillAssist.appendChild(ligneKillAssist)
 
                     var killAssist = document.createElement('th')
                     killAssist.setAttribute('class','th')
@@ -652,12 +654,16 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     progressBarreKillAssist.style.opacity = 1;
                     barreProgDivKillAssist.appendChild(progressBarreKillAssist)
                 //Fin de la ligne Kill/Assist
+            //Fin table kill/assists
             
-
-            //Début de la ligne Dommages aux champions ennemies
+            //Début table Dommages aux champions ennemis
+                //Début de la ligne Dommages aux champions ennemis
+                    var tableauStatDamage = document.createElement('table')
+                    tableauStatDamage.setAttribute('class','statJoueur')
+                    listeDetails.appendChild(tableauStatDamage)
                     //Création de la ligne
                     var ligneDmgChampionsEnemy = document.createElement('tr')
-                    tableauStatKda.appendChild(ligneDmgChampionsEnemy)
+                    tableauStatDamage.appendChild(ligneDmgChampionsEnemy)
 
                     var DmgChampionsEnemy = document.createElement('th')
                     DmgChampionsEnemy.setAttribute('class','th')
@@ -699,11 +705,16 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     progressBarreDmgChampionsEnemy.style.opacity = 1;
                     barreProgDivDmgChampionsEnemy.appendChild(progressBarreDmgChampionsEnemy)
                 //Fin de la ligne dommages aux champions ennemies
-
+            //Fin table dommages aux ennemis
+            
+            //Début table morts
+                var tableauStatDeath = document.createElement('table')
+                tableauStatDeath.setAttribute('class','statJoueur')
+                listeDetails.appendChild(tableauStatDeath)
                 //Début de la ligne Morts
                     //Création de la ligne
                     var ligneDeaths = document.createElement('tr')
-                    tableauStatKda.appendChild(ligneDeaths)
+                    tableauStatDeath.appendChild(ligneDeaths)
 
                     var deaths = document.createElement('th')
                     deaths.setAttribute('class','th')
@@ -743,7 +754,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     progressBarreDeaths.style.opacity = 1;
                     barreProgDivDeaths.appendChild(progressBarreDeaths)
                 //Fin de la ligne morts
-            //Fin table K/D/A
+            //Fin table mort
 
             var separatorVision = document.createElement('div')
             separatorVision.setAttribute('class','separateur')
