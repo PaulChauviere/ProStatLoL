@@ -1,13 +1,5 @@
 //Constantes du code 
-<<<<<<< HEAD
-<<<<<<< HEAD
-const key = 'RGAPI-ee3d18be-a554-412a-92dd-411443751ede'
-=======
 const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
->>>>>>> ab01afa50f717632c4fca92a1f1732ef0af44b3c
-=======
-const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
->>>>>>> ab01afa50f717632c4fca92a1f1732ef0af44b3c
 //Fin constantes
 
 
