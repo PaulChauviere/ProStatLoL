@@ -49,6 +49,7 @@ function afficheParties(nomJoueur){
     var barre = document.getElementById("barre")
 
 
+    
 
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
@@ -62,6 +63,8 @@ function afficheParties(nomJoueur){
     app.innerHTML = "" //"clear" de l'affichage des parties
     app.style.display = 'flex'
 
+    var spinner = new Spinner().spin();
+    app.appendChild(spinner.el);
 
     //Création de la requête pour le profile du joueur
     var requestSummoner = new XMLHttpRequest()
@@ -185,6 +188,7 @@ function afficheParties(nomJoueur){
                         requestMatchId.send()
 
                     }
+                    spinner.stop();
 
                 } else {
                     console.log('Erreur dans le chargement de la liste des matchs')
@@ -195,7 +199,12 @@ function afficheParties(nomJoueur){
 
 
         } else {
-            console.log('Erreur dans le chargement des infos du joueur')
+            spinner.stop();
+            var msgErreur = document.createElement('div')
+            msgErreur.setAttribute('class','text-center msgErreur')
+            
+            msgErreur.textContent = 'Ce nom d\'invocateur n\'existe pas'
+            app.appendChild(msgErreur)
         }
     }
 
@@ -206,7 +215,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
-
+    
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
 
