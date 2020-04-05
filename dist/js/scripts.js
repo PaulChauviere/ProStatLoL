@@ -298,12 +298,20 @@ function afficheDetailsPartie(idPartie, idJoueur){
             var indexTeam;
             var nbCreepsTeam = 0;
             var nbDmgObjTeam = 0;
+            var nbKillAssist = 0;
+            var nbDmgChampionsEnemyTot = 0;
+            var nbDeathsTot = 0;
 
             var nbCreepsTeamRed = 0;
             var nbDmgObjTeamRed = 0;
+            var nbDmgChampionsEnemyRed = 0;
+            var nbDeathsRed =0;
 
             var nbCreepsTeamBlue = 0;
             var nbDmgObjTeamBlue = 0;
+            var nbDmgChampionsEnemyBlue = 0;
+            var nbDeathsBlue = 0;
+
 
             var tableau = document.createElement('table')
             tableau.setAttribute('class', 'table')
@@ -410,9 +418,14 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         //Calcul des variables d'équipe
                             nbCreepsTeamRed += gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled
                             nbDmgObjTeamRed += gameData.participants[i+5].stats.damageDealtToObjectives
+                            nbDmgChampionsEnemyRed += gameData.participants[i+5].stats.totalDamageDealtToChampions
+                            nbDeathsRed += gameData.participants[i+5].stats.deaths
 
                             nbCreepsTeamBlue += gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled
                             nbDmgObjTeamBlue += gameData.participants[i].stats.damageDealtToObjectives
+                            nbDmgChampionsEnemyBlue += gameData.participants[i].stats.totalDamageDealtToChampions
+                            nbDeathsBlue += gameData.participants[i].stats.deaths
+
                         //Fin calcul des variables d'équipe
                     }
 
@@ -424,10 +437,16 @@ function afficheDetailsPartie(idPartie, idJoueur){
             if(indexPerso <= 5){
                 nbCreepsTeam = nbCreepsTeamBlue
                 nbDmgObjTeam = nbDmgObjTeamBlue
+                nbKill = blueKills
+                nbDmgChampionsEnemyTot = nbDmgChampionsEnemyBlue
+                nbDeathsTot = nbDeathsBlue
             }
             else{
                 nbCreepsTeam = nbCreepsTeamRed
                 nbDmgObjTeam = nbDmgObjTeamRed
+                nbKill = redKills
+                nbDmgChampionsEnemyTot = nbDmgChampionsEnemyRed
+                nbDeathsTot = nbDeathsRed
             }
 
             //Remplissage de la zone de détails
@@ -567,6 +586,159 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     barreProgDivDmgObj.appendChild(progressBarreDmgObj)
                 //Fin de la ligne creeps
             //Fin table farming
+
+            var separatorKda = document.createElement('div')
+            separatorKda.setAttribute('class','separateur')
+            var kda = document.createElement('p')
+            kda.textContent = 'K/D/A'
+            separatorKda.appendChild(kda)
+            listeDetails.appendChild(separatorKda)
+            
+            //TABLE concernant le farming
+            var tableauStatKda = document.createElement('table')
+            tableauStatKda.setAttribute('class','statJoueur')
+            listeDetails.appendChild(tableauStatKda)
+            
+                //Début de la ligne Kill/Assist
+                    //Création de la ligne
+                    var ligneKillAssist = document.createElement('tr')
+                    tableauStatKda.appendChild(ligneKillAssist)
+
+                    var killAssist = document.createElement('th')
+                    killAssist.setAttribute('class','th')
+                    killAssist.textContent = 'Kill / Assistance'
+                    ligneKillAssist.appendChild(killAssist)
+
+                    //Chiffre + Image
+                    var nbKillAssist = document.createElement('th')
+                    nbKillAssist.innerHTML = (gameData.participants[indexPerso].stats.kills).toString()+"/" + (gameData.participants[indexPerso].stats.assists).toString() +"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    ligneKillAssist.appendChild(nbKillAssist)
+                    //Fin chiffre + image
+
+                    //Texte "Participation :"
+                    var txtParticipationKillAssist = document.createElement('th')
+                    txtParticipationKillAssist.setAttribute('class','th')
+                    txtParticipationKillAssist.textContent = 'Participation :'
+                    ligneKillAssist.appendChild(txtParticipationKillAssist)
+                    //Fin texte
+
+                    //Création de la colonne
+                    var barreProgColKillAssist = document.createElement('th')
+                    barreProgColKillAssist.setAttribute('class','th')
+                    ligneKillAssist.appendChild(barreProgColKillAssist)
+                    //Création de la div
+                    var barreProgDivKillAssist = document.createElement('div')
+                    barreProgDivKillAssist.setAttribute('class','pourcentage')
+                    barreProgColKillAssist.appendChild(barreProgDivKillAssist)
+
+                    var tauxKillAssist = Math.trunc((((gameData.participants[indexPerso].stats.kills)+(gameData.participants[indexPerso].stats.assists)) / nbKill)*100)
+                
+                    
+
+                    var progressBarreKillAssist = document.createElement('div')
+                    progressBarreKillAssist.setAttribute('class','progress-done progress-done-kda')
+
+                    progressBarreKillAssist.setAttribute('data-done',tauxKillAssist) 
+                    progressBarreKillAssist.textContent = tauxKillAssist.toString()+"%"
+                    progressBarreKillAssist.style.width = progressBarreKillAssist.getAttribute('data-done') + '%';
+                    progressBarreKillAssist.style.opacity = 1;
+                    barreProgDivKillAssist.appendChild(progressBarreKillAssist)
+                //Fin de la ligne Kill/Assist
+            
+
+            //Début de la ligne Dommages aux champions ennemies
+                    //Création de la ligne
+                    var ligneDmgChampionsEnemy = document.createElement('tr')
+                    tableauStatKda.appendChild(ligneDmgChampionsEnemy)
+
+                    var DmgChampionsEnemy = document.createElement('th')
+                    DmgChampionsEnemy.setAttribute('class','th')
+                    DmgChampionsEnemy.textContent = 'Dommages aux champions ennemies'
+                    ligneDmgChampionsEnemy.appendChild(DmgChampionsEnemy)
+
+                    //Chiffre + Image
+                    var nbDmgChampionsEnemy = document.createElement('th')
+                    nbDmgChampionsEnemy.innerHTML = (gameData.participants[indexPerso].stats.totalDamageDealtToChampions).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    ligneDmgChampionsEnemy.appendChild(nbDmgChampionsEnemy)
+                    //Fin chiffre + image
+
+                    //Texte "Participation :"
+                    var txtParticipationDmgChampionsEnemy = document.createElement('th')
+                    txtParticipationDmgChampionsEnemy.setAttribute('class','th')
+                    txtParticipationDmgChampionsEnemy.textContent = 'Participation :'
+                    ligneDmgChampionsEnemy.appendChild(txtParticipationDmgChampionsEnemy)
+                    //Fin texte
+
+                    //Création de la colonne
+                    var barreProgColDmgChampionsEnemy = document.createElement('th')
+                    barreProgColDmgChampionsEnemy.setAttribute('class','th')
+                    ligneDmgChampionsEnemy.appendChild(barreProgColDmgChampionsEnemy)
+                    //Création de la div
+                    var barreProgDivDmgChampionsEnemy = document.createElement('div')
+                    barreProgDivDmgChampionsEnemy.setAttribute('class','pourcentage')
+                    barreProgColDmgChampionsEnemy.appendChild(barreProgDivDmgChampionsEnemy)
+
+                    var tauxDmgChampionsEnemy = Math.trunc(((gameData.participants[indexPerso].stats.totalDamageDealtToChampions)/ nbDmgChampionsEnemyTot)*100)
+                    
+                    
+
+                    var progressBarreDmgChampionsEnemy = document.createElement('div')
+                    progressBarreDmgChampionsEnemy.setAttribute('class','progress-done progress-done-degchamp')
+
+                    progressBarreDmgChampionsEnemy.setAttribute('data-done',tauxDmgChampionsEnemy) 
+                    progressBarreDmgChampionsEnemy.textContent = tauxDmgChampionsEnemy.toString()+"%"
+                    progressBarreDmgChampionsEnemy.style.width = progressBarreDmgChampionsEnemy.getAttribute('data-done') + '%';
+                    progressBarreDmgChampionsEnemy.style.opacity = 1;
+                    barreProgDivDmgChampionsEnemy.appendChild(progressBarreDmgChampionsEnemy)
+                //Fin de la ligne dommages aux champions ennemies
+
+                //Début de la ligne Morts
+                    //Création de la ligne
+                    var ligneDeaths = document.createElement('tr')
+                    tableauStatKda.appendChild(ligneDeaths)
+
+                    var deaths = document.createElement('th')
+                    deaths.setAttribute('class','th')
+                    deaths.textContent = 'Morts'
+                    ligneDeaths.appendChild(deaths)
+
+                    //Chiffre + Image
+                    var nbDeaths = document.createElement('th')
+                    nbDeaths.innerHTML = (gameData.participants[indexPerso].stats.deaths).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    ligneDeaths.appendChild(nbDeaths)
+                    //Fin chiffre + image
+
+                    //Texte "Participation :"
+                    var txtParticipationDeaths = document.createElement('th')
+                    txtParticipationDeaths.setAttribute('class','th')
+                    txtParticipationDeaths.textContent = 'Participation :'
+                    ligneDeaths.appendChild(txtParticipationDeaths)
+                    //Fin texte
+
+                    //Création de la colonne
+                    var barreProgColDeaths = document.createElement('th')
+                    barreProgColDeaths.setAttribute('class','th')
+                    ligneDeaths.appendChild(barreProgColDeaths)
+                    //Création de la div
+                    var barreProgDivDeaths = document.createElement('div')
+                    barreProgDivDeaths.setAttribute('class','pourcentage')
+                    barreProgColDeaths.appendChild(barreProgDivDeaths)
+
+                    var tauxDeaths = Math.trunc(((gameData.participants[indexPerso].stats.deaths)/ nbDeathsTot)*100)
+                    
+                    
+
+                    var progressBarreDeaths = document.createElement('div')
+                    progressBarreDeaths.setAttribute('class','progress-done progress-done-morts')
+
+                    progressBarreDeaths.setAttribute('data-done',tauxDeaths) 
+                    progressBarreDeaths.textContent = tauxDeaths.toString()+"%"
+                    progressBarreDeaths.style.width = progressBarreDeaths.getAttribute('data-done') + '%';
+                    progressBarreDeaths.style.opacity = 1;
+                    barreProgDivDeaths.appendChild(progressBarreDeaths)
+                //Fin de la ligne dommages aux champions ennemies
+            //Fin table K/D/A
+
         }//Fin if(this.status == 200)
 
         var divBouton = document.createElement('div')
