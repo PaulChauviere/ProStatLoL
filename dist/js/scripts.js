@@ -3,6 +3,7 @@ const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
 //Fin constantes
 
 
+
 function convertDateFormat(uneDate){
     var chaineDate = uneDate.split(' ')
     switch(chaineDate[1]){
