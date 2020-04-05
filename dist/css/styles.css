@@ -2826,7 +2826,12 @@ fieldset:disabled a.btn {
 .btn-retour:hover{
   color: #fff;
   background-color: var(--dark-orange);
-  border-color: var(--dark-orange);
+  bord
+  er-color: var(--dark-orange);
+}
+
+.divBouton{
+  width:100%;
 }
 
 .btn-info {

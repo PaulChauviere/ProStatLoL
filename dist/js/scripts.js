@@ -1,4 +1,4 @@
-//Constantes du code 
+//Constantes du code
 const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
 //Fin constantes
 
@@ -50,7 +50,7 @@ function afficheParties(nomJoueur){
     var barre = document.getElementById("barre")
 
 
-    
+
 
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
@@ -203,7 +203,7 @@ function afficheParties(nomJoueur){
             spinner.stop();
             var msgErreur = document.createElement('div')
             msgErreur.setAttribute('class','text-center msgErreur')
-            
+
             msgErreur.textContent = 'Ce nom d\'invocateur n\'existe pas'
             app.appendChild(msgErreur)
         }
@@ -216,7 +216,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
-    
+
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
 
@@ -269,7 +269,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             else{
                 souslVictoire.appendChild(motDefaite)
             }
-            
+
 
             var kdaBlue = document.createElement('th')
             kdaBlue.textContent = blueKills.toString()+" / "+blueDeaths.toString()+" / "+blueAssists
@@ -289,11 +289,15 @@ function afficheDetailsPartie(idPartie, idJoueur){
             else{
                 souslVictoire.appendChild(motVictoire)
             }
-            
+
             //Fin en-tête de la page
 
             //Création du tableau des scores
             var indexPerso;
+            var indexTeam;
+            var nbCreepsTeam = 0;
+            var nbCreepsTeamRed = 0;
+            var nbCreepsTeamBlue = 0;
             var tableau = document.createElement('table')
             tableau.setAttribute('class', 'table')
             descr.appendChild(tableau)
@@ -315,7 +319,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 tableau.appendChild(tBody)
                     //Création des lignes
                     for(var i=0 ; i<5 ; i++){
-                        
+
                         var ligne = document.createElement('tr')
                         tBody.appendChild(ligne)
 
@@ -326,7 +330,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         ligne.appendChild(gChampion)
 
                         var gPseudo = document.createElement('td')
-                       
+
                         gPseudo.setAttribute('class',"equipeGauche")
                         gPseudo.textContent = gameData.participantIdentities[i].player.summonerName
                         ligne.appendChild(gPseudo)
@@ -340,6 +344,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         gCreep.setAttribute('class',"equipeGauche")
                         gCreep.textContent = (gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled).toString()
                         ligne.appendChild(gCreep)
+                        nbCreepsTeamBlue += gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled
 
                         var gGold = document.createElement('td')
                         gGold.setAttribute('class',"tabSeparation")
@@ -348,6 +353,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                         if(gameData.participantIdentities[i].player.accountId == idJoueur){
                             indexPerso = i;
+                            indexTeam = 100;
                             gPseudo.setAttribute('class','equipeGauche ligneJoueur')
                             gCreep.setAttribute('class','equipeGauche ligneJoueur')
                             gKDA.setAttribute('class','equipeGauche ligneJoueur')
@@ -359,12 +365,13 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         var dGold = document.createElement('td')
                         dGold.setAttribute('class',"equipeDroite")
                         dGold.textContent = gameData.participants[i+5].stats.goldEarned.toString()
-                        ligne.appendChild(dGold) 
-                        
+                        ligne.appendChild(dGold)
+
                         var dCreep = document.createElement('td')
                         dCreep.setAttribute('class',"equipeDroite")
                         dCreep.textContent = (gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled).toString()
                         ligne.appendChild(dCreep)
+                        nbCreepsTeamRed += gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled
 
                         var dKDA = document.createElement('td')
                         dKDA.setAttribute('class',"equipeDroite")
@@ -383,34 +390,38 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                         if(gameData.participantIdentities[i+5].player.accountId == idJoueur){
                             indexPerso = i+5;
+                            indexTeam = 200;
                             dPseudo.setAttribute('class','equipeDroite ligneJoueur')
                             dCreep.setAttribute('class','equipeDroite ligneJoueur')
                             dKDA.setAttribute('class','equipeDroite ligneJoueur')
                             dGold.setAttribute('class','equipeDroite ligneJoueur')
                         }
-                                             
+
                         //Fin partie droite
                     }
-                
+
                 //Fin lignes
             //Fin corps du tableau
             //Création des 5 lignes (contenant chacune 2 joueurs -> un perdant et un gagnant)
         //Fin tableau des scores
 
         //Création détails
+        if(indexPerso <= 5){
+            nbCreepsTeam = nbCreepsTeamBlue
+        }
+        else{
+            nbCreepsTeam = nbCreepsTeamRed
+        }
+        var listeDetails = document.getElementById('details')
 
-        var listeDetails = document.createElement('ol')
-        listeDetails.setAttribute('class','breadcrumb mb-4')
-        descr.appendChild(listeDetails)
-
-        var enTete = document.createElement('il')
+        var enTete = document.createElement('li')
         enTete.setAttribute('class','breadcrumb-item','barre')
         enTete.innerHTML = 'Voyons un peu tes statistiques ' + gameData.participantIdentities[indexPerso].player.summonerName + ' !'
         listeDetails.appendChild(enTete)
 
         var imageChamp = document.createElement('li')
         imageChamp.setAttribute('class','breadcrumb-item','barre')
-        imageChamp.innerHTML = "<img class=\"img-fluid img-squareStat\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
+        imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
         listeDetails.appendChild(imageChamp)
 
         var separator = document.createElement('div')
@@ -435,9 +446,48 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         var nbCreepsTue = document.createElement('th')
         nbCreepsTue.setAttribute('class','th')
+
+        nbCreepsTue.textContent = gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled
+        statCreeps.appendChild(nbCreepsTue)
+
+        var imgCreep = document.createElement('th')
+        imgCreep.setAttribute('class','th')
+        imgCreep.innerHTML= "<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/minion.png\" alt=\"image creep\"/>"
+        nbCreepsTue.appendChild(imgCreep)
+
+        var txtParticipation = document.createElement('th')
+        txtParticipation.setAttribute('class','th')
+        txtParticipation.textContent = 'Participation :'
+
+        statCreeps.appendChild(txtParticipation)
+
+        var barreProgCol = document.createElement('th')
+        barreProgCol.setAttribute('class','th')
+
+        var barreProgDiv = document.createElement('div')
+        barreProgDiv.setAttribute('class','pourcentage')
+
+        barreProgCol.appendChild(barreProgDiv)
+
+        var tauxCreepsTue = Math.trunc(((gameData.participants[indexPerso].stats.totalMinionsKilled + gameData.participants[indexPerso].stats.neutralMinionsKilled * 100) / nbCreepsTeam)*100)
+        console.log(tauxCreepsTue)
+        console.log(nbCreepsTeam)
+
         
-        //nbCreepsTue.textContent = gameData.participantIdentities[indexJoueur].
+
+        var progressBarre = document.createElement('div')
+        progressBarre.setAttribute('class','progress-done progress-done-creep')
+        progressBarre.setAttribute('data-done',tauxCreepsTue.toString())
+        barreProgDiv.appendChild(progressBarre)
+
+        const progress = document.querySelector('.progress-done-creep');
+        progress.style.width = progress.getAttribute('data-done') + '%';
+        progress.style.opacity = 1;
         }
+
+        var divBouton = document.createElement('div')
+        divBouton.setAttribute('class',"divBouton")
+        descr.appendChild(divBouton)
 
         var bouton = document.createElement('button')
         var t = document.createTextNode("Retour");       // Créer un noeud textuel
@@ -448,11 +498,11 @@ function afficheDetailsPartie(idPartie, idJoueur){
         //bouton.setAttribute('id','btnR')
         //document.getElementById("bouton").innerHTML="Retour"
 
-        descr.appendChild(bouton)
+        divBouton.appendChild(bouton)
 
-        
 
-        
+
+
     }
 
     requestMatchId.send()
@@ -467,8 +517,5 @@ function retourApp(){
     document.getElementById("application").style.display = "flex";
     document.getElementById("barre").style.display = "block";
     document.getElementById("description").innerHTML =""
-
+    document.getElementById("details").innerHTML =""
 }
-
-
-
