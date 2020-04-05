@@ -1,4 +1,4 @@
-//Constantes du code 
+//Constantes du code
 const key = 'RGAPI-1ebf87d7-bf19-491a-bc68-e5f4ea002d3d'
 //Fin constantes
 
@@ -50,7 +50,7 @@ function afficheParties(nomJoueur){
     var barre = document.getElementById("barre")
 
 
-    
+
 
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
@@ -203,7 +203,7 @@ function afficheParties(nomJoueur){
             spinner.stop();
             var msgErreur = document.createElement('div')
             msgErreur.setAttribute('class','text-center msgErreur')
-            
+
             msgErreur.textContent = 'Ce nom d\'invocateur n\'existe pas'
             app.appendChild(msgErreur)
         }
@@ -216,7 +216,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
-    
+
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
 
@@ -269,7 +269,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             else{
                 souslVictoire.appendChild(motDefaite)
             }
-            
+
 
             var kdaBlue = document.createElement('th')
             kdaBlue.textContent = blueKills.toString()+" / "+blueDeaths.toString()+" / "+blueAssists
@@ -289,7 +289,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
             else{
                 souslVictoire.appendChild(motVictoire)
             }
-            
+
             //Fin en-tête de la page
 
             //Création du tableau des scores
@@ -315,7 +315,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 tableau.appendChild(tBody)
                     //Création des lignes
                     for(var i=0 ; i<5 ; i++){
-                        
+
                         var ligne = document.createElement('tr')
                         tBody.appendChild(ligne)
 
@@ -326,7 +326,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         ligne.appendChild(gChampion)
 
                         var gPseudo = document.createElement('td')
-                       
+
                         gPseudo.setAttribute('class',"equipeGauche")
                         gPseudo.textContent = gameData.participantIdentities[i].player.summonerName
                         ligne.appendChild(gPseudo)
@@ -359,8 +359,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
                         var dGold = document.createElement('td')
                         dGold.setAttribute('class',"equipeDroite")
                         dGold.textContent = gameData.participants[i+5].stats.goldEarned.toString()
-                        ligne.appendChild(dGold) 
-                        
+                        ligne.appendChild(dGold)
+
                         var dCreep = document.createElement('td')
                         dCreep.setAttribute('class',"equipeDroite")
                         dCreep.textContent = (gameData.participants[i+5].stats.totalMinionsKilled + gameData.participants[i+5].stats.neutralMinionsKilled).toString()
@@ -388,10 +388,10 @@ function afficheDetailsPartie(idPartie, idJoueur){
                             dKDA.setAttribute('class','equipeDroite ligneJoueur')
                             dGold.setAttribute('class','equipeDroite ligneJoueur')
                         }
-                                             
+
                         //Fin partie droite
                     }
-                
+
                 //Fin lignes
             //Fin corps du tableau
             //Création des 5 lignes (contenant chacune 2 joueurs -> un perdant et un gagnant)
@@ -435,14 +435,14 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         var nbCreepsTue = document.createElement('th')
         nbCreepsTue.setAttribute('class','th')
-        
-        
-        }   
+
+
+        }
 
         var divBouton = document.createElement('div')
         divBouton.setAttribute('class',"divBouton")
         descr.appendChild(divBouton)
-        
+
         var bouton = document.createElement('button')
         var t = document.createTextNode("Retour");       // Créer un noeud textuel
         bouton.appendChild(t);
@@ -454,9 +454,9 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         divBouton.appendChild(bouton)
 
-        
 
-        
+
+
     }
 
     requestMatchId.send()
@@ -473,6 +473,3 @@ function retourApp(){
     document.getElementById("description").innerHTML =""
 
 }
-
-
-
