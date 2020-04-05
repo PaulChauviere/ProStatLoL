@@ -31,6 +31,22 @@ function toMinute(nbSec){
     return text
 }//toMinute
 
+function typeMatch(queueId){
+    switch(queueId){
+        case 0: return 'Partie personnalisée'; break;
+        case 430: return '5vs5 aveugle'; break;
+        case 420: return 'Classée solo/duo'; break;
+        case 440: return 'Classée flexible'; break;
+        case 840: return 'Coop vs IA'; break;
+        case 850: return 'Coop vs IA'; break;
+        case 400: return '5vs5 draft'; break;
+        case 450: return '5vs5 ARAM'; break;
+        case 1020: return 'One for all'; break;
+        case 76: return 'URF'; break;
+    }
+    return "";
+}
+
 
 
 function affichePartieCheck(){
@@ -142,7 +158,7 @@ function afficheParties(nomJoueur){
                                 //Création de la durée de la card
                                 var cardDuree = document.createElement('div')
                                 cardDuree.setAttribute('class', "card-title2")
-                                cardDuree.textContent = duree // ICI IL FAUDRA METTRE LA DUREE
+                                cardDuree.textContent = duree 
                                 cardDate.appendChild(cardDuree)
 
 
@@ -277,7 +293,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
             souslVictoire.appendChild(kdaBlue)
 
             var typeEtDuree = document.createElement('th')
-            typeEtDuree.textContent = 'ranked solo/duo - 26min59'  //METTRE LE TYPE DE GAME + LA DUREE
+            typeEtDuree.textContent = typeMatch(gameData.queueId)+" - "+toMinute(gameData.gameDuration)  //METTRE LE TYPE DE GAME + LA DUREE
+            console.log("id game :"+gameData.queueId)
             souslVictoire.appendChild(typeEtDuree)
 
             var kdaRed = document.createElement('th')
