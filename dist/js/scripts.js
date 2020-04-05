@@ -301,16 +301,19 @@ function afficheDetailsPartie(idPartie, idJoueur){
             var nbKillAssist = 0;
             var nbDmgChampionsEnemyTot = 0;
             var nbDeathsTot = 0;
+            var scoreVisionTeam = 0;
 
             var nbCreepsTeamRed = 0;
             var nbDmgObjTeamRed = 0;
             var nbDmgChampionsEnemyRed = 0;
             var nbDeathsRed =0;
+            var scoreVisionRed = 0;
 
             var nbCreepsTeamBlue = 0;
             var nbDmgObjTeamBlue = 0;
             var nbDmgChampionsEnemyBlue = 0;
             var nbDeathsBlue = 0;
+            var scoreVisionBlue = 0;
 
 
             var tableau = document.createElement('table')
@@ -420,11 +423,14 @@ function afficheDetailsPartie(idPartie, idJoueur){
                             nbDmgObjTeamRed += gameData.participants[i+5].stats.damageDealtToObjectives
                             nbDmgChampionsEnemyRed += gameData.participants[i+5].stats.totalDamageDealtToChampions
                             nbDeathsRed += gameData.participants[i+5].stats.deaths
+                            scoreVisionRed += gameData.participants[i+5].stats.visionScore
 
                             nbCreepsTeamBlue += gameData.participants[i].stats.totalMinionsKilled + gameData.participants[i].stats.neutralMinionsKilled
                             nbDmgObjTeamBlue += gameData.participants[i].stats.damageDealtToObjectives
                             nbDmgChampionsEnemyBlue += gameData.participants[i].stats.totalDamageDealtToChampions
                             nbDeathsBlue += gameData.participants[i].stats.deaths
+                            scoreVisionBlue += gameData.participants[i].stats.visionScore
+
 
                         //Fin calcul des variables d'équipe
                     }
@@ -440,6 +446,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 nbKill = blueKills
                 nbDmgChampionsEnemyTot = nbDmgChampionsEnemyBlue
                 nbDeathsTot = nbDeathsBlue
+                scoreVisionTeam = scoreVisionBlue
             }
             else{
                 nbCreepsTeam = nbCreepsTeamRed
@@ -447,6 +454,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 nbKill = redKills
                 nbDmgChampionsEnemyTot = nbDmgChampionsEnemyRed
                 nbDeathsTot = nbDeathsRed
+                scoreVisionTeam = scoreVisionRed
             }
 
             //Remplissage de la zone de détails
@@ -726,8 +734,6 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     var tauxDeaths = Math.trunc(((gameData.participants[indexPerso].stats.deaths)/ nbDeathsTot)*100)
                     
-                    
-
                     var progressBarreDeaths = document.createElement('div')
                     progressBarreDeaths.setAttribute('class','progress-done progress-done-morts')
 
@@ -738,6 +744,66 @@ function afficheDetailsPartie(idPartie, idJoueur){
                     barreProgDivDeaths.appendChild(progressBarreDeaths)
                 //Fin de la ligne dommages aux champions ennemies
             //Fin table K/D/A
+
+            var separatorVision = document.createElement('div')
+            separatorVision.setAttribute('class','separateur')
+            var vision = document.createElement('p')
+            vision.textContent = 'Vision'
+            separatorVision.appendChild(vision)
+            listeDetails.appendChild(separatorVision)
+
+            //TABLE concernant la vision
+                var tableaustatVision = document.createElement('table')
+                tableaustatVision.setAttribute('class','statJoueur')
+                listeDetails.appendChild(tableaustatVision)
+                
+                //Début de la ligne Vision
+                    var statVision = document.createElement('tr')
+                    tableaustatVision.appendChild(statVision)
+
+                    var txtVision = document.createElement('th')
+                    txtVision.setAttribute('class','th')
+                    txtVision.textContent = 'Score de vision'
+
+                    statVision.appendChild(txtVision)
+
+                    //Chiffre + Image
+                    var scoreVision = document.createElement('th')
+                    scoreVision.innerHTML = (gameData.participants[indexPerso].stats.visionScore).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"image du champion\">"
+                    statVision.appendChild(scoreVision)
+                    //Fin chiffre + image
+
+                    //Texte "Participation :"
+                    var txtParticipationVision = document.createElement('th')
+                    txtParticipationVision.setAttribute('class','th')
+                    txtParticipationVision.textContent = 'Participation :'
+                    statVision.appendChild(txtParticipationVision)
+                    //Fin texte
+
+                    //Création de la colonne
+                    var barreProgColVision = document.createElement('th')
+                    barreProgColVision.setAttribute('class','th')
+                    statVision.appendChild(barreProgColVision)
+                    //Création de la div
+                    var barreProgDivVision = document.createElement('div')
+                    barreProgDivVision.setAttribute('class','pourcentage')
+                    barreProgColVision.appendChild(barreProgDivVision)
+
+                    var tauxVision = Math.trunc(((gameData.participants[indexPerso].stats.visionScore) / scoreVisionTeam)*100)
+                
+                   
+
+                    var progressBarreVision = document.createElement('div')
+                    progressBarreVision.setAttribute('class','progress-done progress-done-creep')
+
+                    progressBarreVision.setAttribute('data-done',tauxVision) 
+                    progressBarreVision.textContent = tauxVision.toString()+"%"
+                    progressBarreVision.style.width = progressBarreVision.getAttribute('data-done') + '%';
+                    progressBarreVision.style.opacity = 1;
+                    barreProgDivVision.appendChild(progressBarreVision)
+                //Fin de la ligne Vision
+            //Fin table Vision
+
 
         }//Fin if(this.status == 200)
 
