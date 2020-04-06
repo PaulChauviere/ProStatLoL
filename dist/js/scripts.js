@@ -228,6 +228,13 @@ function afficheParties(nomJoueur){
     requestSummoner.send()
 }
 
+
+
+
+
+
+
+
 function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
@@ -488,7 +495,10 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
             var imageChamp = document.createElement('li')
             imageChamp.setAttribute('class','breadcrumb-item','barre')
-            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
+            var role = gameData.participants[indexPerso].timeline.lane
+            if(role == "BOTTOM" && gameData.participants[indexPerso].timeline.role == "DUO_CARRY")
+                role = "ADC"
+            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+role+".png\" alt=\"image du role\"/>"
             listeDetails.appendChild(imageChamp)
 
             //Séparateur farming
@@ -845,13 +855,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         bouton.setAttribute('class','btn-retour')
         bouton.setAttribute('onclick','retourApp()')
-        //bouton.setAttribute('id','btnR')
-        //document.getElementById("bouton").innerHTML="Retour"
 
         divBouton.appendChild(bouton)
-
-
-
 
     }
 
