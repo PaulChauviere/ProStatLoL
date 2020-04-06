@@ -228,6 +228,13 @@ function afficheParties(nomJoueur){
     requestSummoner.send()
 }
 
+
+
+
+
+
+
+
 function afficheDetailsPartie(idPartie, idJoueur){
 
     document.getElementById("application").style.display = "none";
@@ -488,7 +495,10 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
             var imageChamp = document.createElement('li')
             imageChamp.setAttribute('class','breadcrumb-item','barre')
-            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/>"
+            var role = gameData.participants[indexPerso].timeline.lane
+            if(role == "BOTTOM" && gameData.participants[indexPerso].timeline.role == "DUO_CARRY")
+                role = "ADC"
+            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+role+".png\" alt=\"image du role\"/>"
             listeDetails.appendChild(imageChamp)
 
             //Séparateur farming
@@ -577,7 +587,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var nbDmgObj = document.createElement('th')
-                    nbDmgObj.innerHTML = (gameData.participants[indexPerso].stats.damageDealtToObjectives).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    nbDmgObj.innerHTML = (gameData.participants[indexPerso].stats.damageDealtToObjectives).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/objectif.png\" alt=\"nashor\">"
                     ligneDmgObj.appendChild(nbDmgObj)
                     //Fin chiffre + image
 
@@ -689,7 +699,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var nbDmgChampionsEnemy = document.createElement('th')
-                    nbDmgChampionsEnemy.innerHTML = (gameData.participants[indexPerso].stats.totalDamageDealtToChampions).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    nbDmgChampionsEnemy.innerHTML = (gameData.participants[indexPerso].stats.totalDamageDealtToChampions).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/dmg.png\" alt=\"2 épées croisées\">"
                     ligneDmgChampionsEnemy.appendChild(nbDmgChampionsEnemy)
                     //Fin chiffre + image
 
@@ -740,7 +750,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var nbDeaths = document.createElement('th')
-                    nbDeaths.innerHTML = (gameData.participants[indexPerso].stats.deaths).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"2 épées croisées\">"
+                    nbDeaths.innerHTML = (gameData.participants[indexPerso].stats.deaths).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/mort.png\" alt=\"mort\">"
                     ligneDeaths.appendChild(nbDeaths)
                     //Fin chiffre + image
 
@@ -797,7 +807,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var scoreVision = document.createElement('th')
-                    scoreVision.innerHTML = (gameData.participants[indexPerso].stats.visionScore).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/score.png\" alt=\"image du champion\">"
+                    scoreVision.innerHTML = (gameData.participants[indexPerso].stats.visionScore).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/ward.png\" alt=\"image du champion\">"
                     statVision.appendChild(scoreVision)
                     //Fin chiffre + image
 
@@ -845,13 +855,8 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
         bouton.setAttribute('class','btn-retour')
         bouton.setAttribute('onclick','retourApp()')
-        //bouton.setAttribute('id','btnR')
-        //document.getElementById("bouton").innerHTML="Retour"
 
         divBouton.appendChild(bouton)
-
-
-
 
     }
 
