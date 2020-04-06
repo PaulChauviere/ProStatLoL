@@ -47,6 +47,14 @@ function typeMatch(queueId){
     return "";
 }
 
+function typeQueueToId(queueType){
+    switch(queueType){
+        case 'RANKED_SOLO_5x5': return 420; break;
+        case 'RANKED_FLEX_SR': return  440; break;
+    }
+    return "";
+}
+
 
 
 function affichePartieCheck(){
@@ -101,6 +109,7 @@ function afficheParties(nomJoueur){
 
             //Création de la requête pour l'historique des matchs
             var accountId = dataSummoner.accountId
+            var encrId = dataSummoner.id
             var requestMatchList = new XMLHttpRequest()
             requestMatchList.open('GET','https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'+accountId+'?api_key='+key, true)
 
@@ -179,7 +188,7 @@ function afficheParties(nomJoueur){
                                 //Création du lien vers la partie
                                 var lienPartie = document.createElement('a')
                                 lienPartie.setAttribute('class',"small text-white stretched-link")
-                                lienPartie.setAttribute('onclick', "afficheDetailsPartie("+gameId.toString()+", \""+accountId.toString()+"\")")
+                                lienPartie.setAttribute('onclick', "afficheDetailsPartie("+gameId.toString()+", \""+accountId.toString()+"\",\"" + encrId.toString() + "\")")
                                 lienPartie.setAttribute('href', "#")
                                 lienPartie.textContent = 'Voir les détails'
                                 footer.appendChild(lienPartie)
@@ -235,7 +244,7 @@ function afficheParties(nomJoueur){
 
 
 
-function afficheDetailsPartie(idPartie, idJoueur){
+function afficheDetailsPartie(idPartie, idJoueur,idCompte){
 
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
@@ -481,11 +490,15 @@ function afficheDetailsPartie(idPartie, idJoueur){
                 scoreVisionTeam = scoreVisionRed
             }
 
+
+
+
             //Remplissage de la zone de détails
             var emplacementDetails = document.getElementById("details")
 
             var listeDetails = document.createElement('ol')
             listeDetails.setAttribute('class',"breadcrumb mb-4")
+            listeDetails.setAttribute('id',"lstDtls")
             emplacementDetails.appendChild(listeDetails)
 
             var enTete = document.createElement('li')
@@ -493,13 +506,52 @@ function afficheDetailsPartie(idPartie, idJoueur){
             enTete.innerHTML = 'Voyons un peu tes statistiques ' + gameData.participantIdentities[indexPerso].player.summonerName + ' !'
             listeDetails.appendChild(enTete)
 
-            var imageChamp = document.createElement('li')
-            imageChamp.setAttribute('class','breadcrumb-item','barre')
-            var role = gameData.participants[indexPerso].timeline.lane
-            if(role == "BOTTOM" && gameData.participants[indexPerso].timeline.role == "DUO_CARRY")
-                role = "ADC"
-            imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+role+".png\" alt=\"image du role\"/>"
-            listeDetails.appendChild(imageChamp)
+            // Remlissage image champion + rank + lane
+
+            var requestRank = new XMLHttpRequest()
+            requestRank.open('GET','https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'+idCompte+'?api_key='+key, false) // recupère rank 
+            requestRank.onload = function(){
+                var liste = document.getElementById("lstDtls")
+                var rank =""
+                var tier =""
+                var lp 
+                var dataRank = JSON.parse(this.response)
+                dataRank.forEach(mode =>{  
+                    if(gameData.queueId == typeQueueToId(mode.queueType)){
+                        rank = mode.rank 
+                        tier = mode.tier
+                        lp = mode.leaguePoints
+                    }
+                    
+                })
+
+                var imageChamp = document.createElement('li')
+                imageChamp.setAttribute('class','breadcrumb-item','barre')
+                var role = gameData.participants[indexPerso].timeline.lane // Determine le role
+                if(role == "BOTTOM" && gameData.participants[indexPerso].timeline.role == "DUO_CARRY")
+                    role = "ADC"
+
+                if(tier != ""){ //cas Partie classé
+                    if(role != "NONE")
+                        imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/rangImg/"+tier+".png\" alt=\"image du role\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+tier+role+".png\" alt=\"image du role\"/>"
+                    else
+                        imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/rangImg/"+tier+".png\" alt=\"image du role\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+role+".png\" alt=\"image du role\"/>"
+                    liste.appendChild(imageChamp)
+                    var infoRank = document.createElement('li')
+                    infoRank.setAttribute('class','breadcrumb-item','barre')
+                    infoRank.innerHTML = tier + " " + rank + "  -  " + lp + " LP"
+                    liste.appendChild(infoRank)
+                }
+                    
+                else{ //cas Partie non classé
+                    imageChamp.innerHTML = "<img class=\"img-fluid img-squareDetail\" src=\"../data/champImg/"+gameData.participants[indexPerso].championId.toString()+".png\" alt=\"image du champion\"/> <img class=\"img-fluid img-squareDetail\" src=\"../data/posteImg/"+role+".png\" alt=\"image du role\"/>"
+                    liste.appendChild(imageChamp)
+                }
+                    
+            }
+            requestRank.send()
+
+            
 
             //Séparateur farming
             var separatorFarm = document.createElement('div')
@@ -587,7 +639,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var nbDmgObj = document.createElement('th')
-                    nbDmgObj.innerHTML = (gameData.participants[indexPerso].stats.damageDealtToObjectives).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/objectif.png\" alt=\"nashor\">"
+                    nbDmgObj.innerHTML = (gameData.participants[indexPerso].stats.damageDealtToObjectives).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/objectif.png\" alt=\"2 épées croisées\">"
                     ligneDmgObj.appendChild(nbDmgObj)
                     //Fin chiffre + image
 
@@ -750,7 +802,7 @@ function afficheDetailsPartie(idPartie, idJoueur){
 
                     //Chiffre + Image
                     var nbDeaths = document.createElement('th')
-                    nbDeaths.innerHTML = (gameData.participants[indexPerso].stats.deaths).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/mort.png\" alt=\"mort\">"
+                    nbDeaths.innerHTML = (gameData.participants[indexPerso].stats.deaths).toString()+"<img class=\"img-fluid img-squareStat\" src=\"../data/ressourcesImg/mort.png\" alt=\"2 épées croisées\">"
                     ligneDeaths.appendChild(nbDeaths)
                     //Fin chiffre + image
 
