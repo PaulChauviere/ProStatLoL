@@ -1,5 +1,5 @@
 //Constantes du code
-const key = 'RGAPI-b25e16f9-cc66-477b-b4c1-7e38392fb5ea'
+const key = 'RGAPI-def873a0-a9a3-44d4-a29f-24731fa503b8'
 //Fin constantes
 
 
@@ -73,9 +73,7 @@ function afficheParties(nomJoueur){
     var msgLesCreateurs = document.getElementById("title2")
     var barre = document.getElementById("barre")
 
-
-
-
+    
     cartes.style.display = 'none'
     imageTresh.style.display = 'none'
     msgLesCreateurs.style.display = 'none'
@@ -249,6 +247,8 @@ function afficheDetailsPartie(idPartie, idJoueur,idCompte){
     document.getElementById("application").style.display = "none";
     document.getElementById("barre").style.display = "none";
     document.getElementById("zoneBarre").style.display = "none";
+
+   
 
     const descr = document.getElementById('description')
     //descr.innerHTML = ""
